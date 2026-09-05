@@ -1,0 +1,2520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VANTA — Product Journey: Low-Fi Wireframes to High-Fidelity System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Base Tokens from Vanta PRD & Design System */
+      --canvas: #F4F5F7;
+      --surface: #FFFFFF;
+      --surface-alt: #F8FAFC;
+      --ink: #0F172A;
+      --ink-2: #334155;
+      --ink-3: #64748B;
+      --border: #E2E8F0;
+      --border-strong: #CBD5E1;
+      --accent: #1E293B;
+      --accent-hover: #0F172A;
+      --accent-tint: #F1F5F9;
+
+      /* Five-Class Evidence Taxonomy Tokens */
+      --c1-ok: #10B981;        --c1-tint: #ECFDF5;
+      --c2-info: #3B82F6;      --c2-tint: #EFF6FF;
+      --c3-infer: #8B5CF6;     --c3-tint: #F5F3FF;
+      --c4-sim: #F59E0B;       --c4-tint: #FFFBEB;
+      --c5-unk: #64748B;       --c5-tint: #F1F5F9;
+      --fail-closed: #EF4444;  --fail-tint: #FEF2F2;
+
+      --radius: 8px;
+      --radius-sm: 6px;
+      --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+      --shadow-md: 0 4px 12px -2px rgba(15, 23, 42, 0.08), 0 2px 4px -1px rgba(15, 23, 42, 0.04);
+
+      /* Section 02 Specific Tokens (Clean Warm Professional) */
+      --hfp-canvas: #F3F2EF;
+      --hfp-surface: #FFFFFF;
+      --hfp-surface-alt: #FAF9F6;
+      --hfp-ink: #14171A;
+      --hfp-ink-2: #4B4F54;
+      --hfp-ink-3: #8B8E92;
+      --hfp-border: #E5E3DE;
+      --hfp-border-strong: #D2CFC8;
+      --hfp-accent: #1F2B4D;
+      --hfp-accent-hover: #141D38;
+      --hfp-accent-tint: #E8EAF1;
+      --hfp-ok: #1E7A50;      --hfp-ok-tint: #E3F2E9;
+      --hfp-info: #2260A4;    --hfp-info-tint: #E5EEF7;
+      --hfp-infer: #6A4C9C;   --hfp-infer-tint: #EEEAF6;
+      --hfp-sim: #C0761F;     --hfp-sim-tint: #FAF0DF;
+      --hfp-unk: #7C7F83;     --hfp-unk-tint: #EEEEEC;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #ECEEF2;
+      color: var(--ink);
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+    }
+
+    /* Section 02 Frame & Component Styles */
+    svg.icon { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; vertical-align: -2px; }
+    .hfp-frame { width: 452px; min-width: 452px; background: var(--hfp-surface); border: 1px solid var(--hfp-border-strong); border-radius: 12px; box-shadow: var(--shadow-md); overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+    .hfp-chrome { display: flex; align-items: center; gap: 6px; padding: 9px 12px; background: var(--hfp-surface-alt); border-bottom: 1px solid var(--hfp-border); }
+    .hfp-url { flex: 1; height: 18px; background: var(--hfp-surface); border: 1px solid var(--hfp-border); border-radius: 5px; margin-left: 8px; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: var(--hfp-ink-3); display: flex; align-items: center; padding: 0 8px; }
+    .hfp-nav { display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-bottom: 1px solid var(--hfp-border); }
+    .hfp-ws-pill { font-size: 10px; color: var(--hfp-ink-2); background: var(--hfp-surface-alt); border: 1px solid var(--hfp-border); border-radius: 20px; padding: 3px 9px; display: flex; align-items: center; gap: 4px; }
+    .hfp-tabs { display: flex; gap: 2px; padding: 0 14px; border-bottom: 1px solid var(--hfp-border); }
+    .hfp-tab { font-size: 11px; color: var(--hfp-ink-3); padding: 9px 4px; margin-right: 14px; border-bottom: 2px solid transparent; }
+    .hfp-tab.active { color: var(--hfp-ink); font-weight: 600; border-bottom: 2px solid var(--hfp-accent); }
+    .hfp-body { padding: 16px 16px 14px; flex: 1; display: flex; flex-direction: column; }
+    .hfp-card { border: 1px solid var(--hfp-border); border-radius: var(--radius); padding: 11px 12px; margin-top: 10px; background: var(--hfp-surface); }
+    .hfp-card-alt { background: var(--hfp-surface-alt); }
+    .hfp-card-label { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .04em; color: var(--hfp-ink-3); text-transform: uppercase; margin-bottom: 8px; }
+    .hfp-dropzone { border: 1.5px dashed var(--hfp-border-strong); border-radius: var(--radius-sm); background: var(--hfp-surface-alt); height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: var(--hfp-ink-2); }
+    .hfp-field { border: 1px solid var(--hfp-border-strong); border-radius: 6px; height: 26px; display: flex; align-items: center; justify-content: space-between; padding: 0 9px; font-size: 10.5px; color: var(--hfp-ink-2); background: var(--hfp-surface); }
+    .hfp-stat-pill { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 600; padding: 3px 8px; border-radius: 20px; display: inline-flex; align-items: center; gap: 4px; }
+    .hfp-stat-pill.ok { background: var(--hfp-ok-tint); color: var(--hfp-ok); }
+    .hfp-stat-pill.info { background: var(--hfp-info-tint); color: var(--hfp-info); }
+    .hfp-stat-pill.sim { background: var(--hfp-sim-tint); color: var(--hfp-sim); }
+    .hfp-scene-strip { display: flex; gap: 6px; margin-top: 8px; }
+    .hfp-scene { flex: 1; min-width: 0; position: relative; }
+    .hfp-scene-thumb { height: 44px; border-radius: 6px; background: var(--hfp-surface-alt); border: 1px solid var(--hfp-border); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--hfp-ink-3); }
+    .hfp-scene.flag .hfp-scene-thumb { border-color: var(--hfp-sim); background: var(--hfp-sim-tint); }
+    .hfp-scene-flagicon { position: absolute; top: -5px; right: -4px; width: 14px; height: 14px; background: var(--hfp-sim); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; }
+    .hfp-scene-idx { font-family: 'JetBrains Mono', monospace; font-size: 8.5px; color: var(--hfp-ink-3); text-align: center; margin-top: 3px; }
+    .hfp-brief { border: 1px solid var(--hfp-border); border-radius: var(--radius-sm); padding: 8px 10px; margin-top: 7px; }
+    .hfp-ev-table { margin-top: 9px; border: 1px solid var(--hfp-border); border-radius: var(--radius-sm); overflow: hidden; }
+    .hfp-ev-row { display: grid; grid-template-columns: 1.7fr .85fr 1.1fr .55fr; gap: 8px; padding: 7px 9px; align-items: center; border-bottom: 1px solid var(--hfp-border); font-size: 10px; color: var(--hfp-ink-2); }
+    .hfp-ev-row:last-child { border-bottom: none; }
+    .hfp-ev-row.head { background: var(--hfp-surface-alt); font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600; color: var(--hfp-ink-3); text-transform: uppercase; }
+    .hfp-ev-row.blocked { background: var(--hfp-sim-tint); }
+    .hfp-matrix { margin-top: 9px; border: 1px solid var(--hfp-border); border-radius: var(--radius-sm); overflow: hidden; }
+    .hfp-mrow { display: grid; grid-template-columns: .85fr 1fr 1fr 1fr; gap: 6px; padding: 8px 9px; align-items: center; border-bottom: 1px solid var(--hfp-border); }
+    .hfp-mrow:last-child { border-bottom: none; }
+    .hfp-mrow.head { background: var(--hfp-surface-alt); }
+    .hfp-mrow.head span { font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600; color: var(--hfp-ink-3); text-transform: uppercase; }
+    .hfp-mrow.recommended { background: var(--hfp-accent-tint); }
+    .hfp-cta-bar { border-top: 1px solid var(--hfp-border); padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; background: var(--hfp-surface-alt); }
+    .hfp-connector { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 66px; align-self: center; margin-top: 40px; }
+    .hfp-connector-line { width: 40px; height: 1.5px; background: var(--hfp-border-strong); position: relative; }
+    .hfp-connector-line::after { content: ""; position: absolute; right: -1px; top: -3px; width: 0; height: 0; border-top: 4px solid transparent; border-bottom: 4px solid transparent; border-left: 6px solid var(--hfp-border-strong); }
+    .hfp-connector-caption { font-size: 8.5px; color: var(--hfp-ink-3); text-align: center; margin-top: 6px; line-height: 1.35; max-width: 72px; font-family: 'JetBrains Mono', monospace; }
+
+    /* Subtle Architectural Canvas Grid */
+    .wf-canvas {
+      background-size: 24px 24px;
+      background-image: 
+        linear-gradient(to right, rgba(148, 163, 184, 0.12) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(148, 163, 184, 0.12) 1px, transparent 1px);
+    }
+
+    /* Low-Fi Wireframe Screen Styling */
+    .wf-screen {
+      background: #ffffff;
+      border: 1.5px solid #475569;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      border-radius: 6px;
+      width: 470px;
+      min-width: 470px;
+      transition: all 0.2s ease;
+    }
+    .wf-box {
+      border: 1px solid #94a3b8;
+      background: #f8fafc;
+    }
+    .wf-box-dashed {
+      border: 1.5px dashed #64748b;
+      background: #f8fafc;
+    }
+    .wf-image-placeholder {
+      position: relative;
+      background: #f1f5f9;
+      border: 1px solid #94a3b8;
+      overflow: hidden;
+    }
+    .wf-image-placeholder::before, .wf-image-placeholder::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(to top right, transparent calc(50% - 0.5px), #cbd5e1 50%, transparent calc(50% + 0.5px));
+    }
+    .wf-image-placeholder::after {
+      background: linear-gradient(to bottom right, transparent calc(50% - 0.5px), #cbd5e1 50%, transparent calc(50% + 0.5px));
+    }
+
+    /* High-Fidelity Product UI Styling */
+    .hifi-frame {
+      width: 470px;
+      min-width: 470px;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: 10px;
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .browser-chrome {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 12px;
+      background: #F1F5F9;
+      border-bottom: 1px solid var(--border);
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .dot.r { background: #EF4444; }
+    .dot.y { background: #F59E0B; }
+    .dot.g { background: #10B981; }
+    .url-bar {
+      flex: 1;
+      height: 20px;
+      background: #ffffff;
+      border: 1px solid var(--border-strong);
+      border-radius: 4px;
+      margin-left: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--ink-3);
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+    }
+
+    /* Evidence Chips & Badges */
+    .chip {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+    .chip::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .chip-c1 { background: var(--c1-tint); color: var(--c1-ok); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .chip-c1::before { background: var(--c1-ok); }
+    .chip-c2 { background: var(--c2-tint); color: var(--c2-info); border: 1px solid rgba(59, 130, 246, 0.3); }
+    .chip-c2::before { background: var(--c2-info); }
+    .chip-c3 { background: var(--c3-tint); color: var(--c3-infer); border: 1px solid rgba(139, 92, 246, 0.3); }
+    .chip-c3::before { background: var(--c3-infer); }
+    .chip-c4 { background: var(--c4-tint); color: var(--c4-sim); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .chip-c4::before { background: var(--c4-sim); }
+    .chip-c5 { background: var(--c5-tint); color: var(--c5-unk); border: 1px dashed var(--c5-unk); }
+    .chip-c5::before { background: var(--c5-unk); }
+
+    /* Custom Horizontal Scrollbar */
+    .custom-scrollbar::-webkit-scrollbar {
+      height: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #E2E8F0;
+      border-radius: 5px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #94A3B8;
+      border-radius: 5px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #64748B;
+    }
+
+    /* Smooth Scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* ── High-Fidelity Mockup Board Theme Variables ── */
+    .hf-dark {
+      --hf-bg: #0d0d0d;
+      --hf-surface: #141414;
+      --hf-surface-raised: #1c1c1c;
+      --hf-surface-border: #252525;
+      --hf-border: #2a2a2a;
+      --hf-border-subtle: #1e1e1e;
+      --hf-primary: #0075de;
+      --hf-primary-hover: #005bab;
+      --hf-primary-muted: rgba(0, 117, 222, 0.15);
+      --hf-ink: #f0f0f0;
+      --hf-ink-secondary: #a0a0a0;
+      --hf-ink-muted: #666666;
+      --hf-ink-faint: #3a3a3a;
+      --hf-obs-bg: #0c2a14; --hf-obs-border: #1a5c2a; --hf-obs-text: #4ade80; --hf-obs-dot: #22c55e;
+      --hf-src-bg: #0c1e38; --hf-src-border: #1a3d6e; --hf-src-text: #60a5fa; --hf-src-dot: #3b82f6;
+      --hf-inf-bg: #1e0c38; --hf-inf-border: #3d1a6e; --hf-inf-text: #c084fc; --hf-inf-dot: #a855f7;
+      --hf-sim-bg: #2a1c08; --hf-sim-border: #5c3a10; --hf-sim-text: #fbbf24; --hf-sim-dot: #f59e0b;
+      --hf-unk-bg: #1a1a1a; --hf-unk-border: #333333; --hf-unk-text: #9ca3af; --hf-unk-dot: #6b7280;
+    }
+
+    .hf-light {
+      --hf-bg: #f5f4f0;
+      --hf-surface: #ffffff;
+      --hf-surface-raised: #fbfbfa;
+      --hf-surface-border: #e8e6e1;
+      --hf-border: #dedad4;
+      --hf-border-subtle: #eeece8;
+      --hf-primary: #0075de;
+      --hf-primary-hover: #005bab;
+      --hf-primary-muted: rgba(0, 117, 222, 0.08);
+      --hf-ink: #141414;
+      --hf-ink-secondary: #4a4a4a;
+      --hf-ink-muted: #888888;
+      --hf-ink-faint: #c8c5be;
+      --hf-obs-bg: #e6f8ed; --hf-obs-border: #bbf0d0; --hf-obs-text: #166534; --hf-obs-dot: #22c55e;
+      --hf-src-bg: #ebf5ff; --hf-src-border: #bfdbfe; --hf-src-text: #1e40af; --hf-src-dot: #3b82f6;
+      --hf-inf-bg: #f3e8ff; --hf-inf-border: #e9d5ff; --hf-inf-text: #6b21a8; --hf-inf-dot: #a855f7;
+      --hf-sim-bg: #fef3c7; --hf-sim-border: #fde68a; --hf-sim-text: #92400e; --hf-sim-dot: #f59e0b;
+      --hf-unk-bg: #f1f5f9; --hf-unk-border: #cbd5e1; --hf-unk-text: #475569; --hf-unk-dot: #64748b;
+    }
+  </style>
+</head>
+<body class="wf-canvas min-h-screen p-4 md:p-8 flex flex-col items-center">
+
+  <!-- Toast Notification System -->
+  <div id="toastNotification" class="fixed top-5 right-5 z-50 transform translate-y-[-140%] opacity-0 transition-all duration-300 max-w-md bg-slate-900 text-white p-3.5 rounded-lg border border-slate-700 shadow-2xl font-mono text-xs flex items-start gap-3">
+    <span id="toastIcon" class="text-base">ℹ️</span>
+    <div class="flex-1">
+      <div id="toastTitle" class="font-bold text-[11px] uppercase tracking-wider text-slate-200">System Notification</div>
+      <div id="toastMessage" class="text-slate-300 text-[10px] mt-0.5">Action completed.</div>
+    </div>
+    <button onclick="hideToast()" class="text-slate-400 hover:text-white text-xs">✕</button>
+  </div>
+
+  <!-- Hidden SVG Sprite for Icons -->
+  <svg style="display:none">
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4"/><path d="M7 9l5-5 5 5"/><path d="M4 19h16"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3l9 16H3z"/><path d="M12 9v4"/><path d="M12 16.2v.1"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></symbol>
+    <symbol id="i-ext" viewBox="0 0 24 24"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 12l5 5 5-5"/><path d="M4 21h16"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  </svg>
+
+  <!-- ========================================================================= -->
+  <!-- TOP PORTFOLIO NAVIGATION & PROGRESSION SELECTOR -->
+  <!-- ========================================================================= -->
+  <header class="w-full max-w-[2700px] mb-6">
+    <div class="bg-white border border-slate-300 rounded-lg p-4 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      
+      <!-- Brand & Project Overview -->
+      <div>
+        <div class="flex items-center gap-2 mb-1.5">
+          <span class="text-[10px] font-mono font-bold px-2 py-0.5 bg-slate-900 text-white rounded">
+            VANTA PM &amp; UX CASE STUDY
+          </span>
+          <span class="text-[11px] font-mono text-slate-500 font-semibold">
+            Progressive Disclosure: 01 Low-Fi Wireframes → 02 High-Fi Product Journey → 03 Production Cockpit
+          </span>
+        </div>
+        <h1 class="text-lg md:text-xl font-bold text-slate-900 font-mono tracking-tight">
+          Evidence-Grounded Creative Intelligence: 5-Stage Core Journey
+        </h1>
+        <p class="text-xs text-slate-600 mt-1 max-w-3xl">
+          Complete end-to-end progression showing how creative review evolves from raw video upload and second-by-second diagnostics to empirical evidence auditing, trade-off comparison, and fail-closed campaign sign-off.
+        </p>
+      </div>
+
+      <!-- Jump Anchors to All 3 Stages -->
+      <div class="flex flex-wrap items-center gap-2">
+        <a href="#section-lowfi" class="px-3 py-2 rounded border border-slate-400 bg-slate-100 hover:bg-slate-200 text-xs font-mono font-semibold text-slate-800 flex items-center gap-1.5 transition-colors">
+          <span class="w-2 h-2 rounded-full bg-slate-500"></span>
+          <span>01: Low-Fi Wireframes</span>
+        </a>
+        <a href="#section-hifi" class="px-3 py-2 rounded border border-slate-400 bg-slate-100 hover:bg-slate-200 text-xs font-mono font-semibold text-slate-800 flex items-center gap-1.5 transition-colors">
+          <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+          <span>02: High-Fi Journey</span>
+        </a>
+        <a href="#section-prod" class="px-3 py-2 rounded border border-slate-900 bg-slate-900 hover:bg-slate-800 text-xs font-mono font-semibold text-white flex items-center gap-1.5 transition-colors shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>03: Production Cockpit</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- SECTION 01: LOW-FIDELITY WIREFRAMES (Grayscale Architectural Wireframes) -->
+  <!-- ========================================================================= -->
+  <section id="section-lowfi" class="w-full max-w-[2700px] mb-12 scroll-mt-6">
+    
+    <!-- Section Header Strip -->
+    <div class="bg-white border border-slate-300 rounded-t-lg p-4 border-b-0">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-[10px] font-mono font-bold px-2 py-0.5 bg-slate-800 text-white rounded">
+              SECTION 01
+            </span>
+            <span class="text-xs font-mono font-bold text-slate-700">
+              LOW-FIDELITY STRUCTURAL WIREFRAMES
+            </span>
+          </div>
+          <p class="text-xs text-slate-600">
+            Initial grayscale layouts validating information hierarchy, button placements, and human-in-the-loop decision checkpoints before visual design styling.
+          </p>
+        </div>
+
+        <!-- Wireframe Legend -->
+        <div class="flex flex-wrap items-center gap-3 text-[10px] font-mono text-slate-600 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded self-start md:self-auto">
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 bg-slate-900 rounded-sm inline-block"></span>
+            <span>Main Button</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 border border-slate-400 bg-white rounded-sm inline-block"></span>
+            <span>Input / Tab</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="text-red-700 font-bold">▲</span>
+            <span>Flagged Issue</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="text-slate-400 font-bold">→</span>
+            <span>Workflow Connector</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Horizontal Wireframe Board Container -->
+    <div class="w-full overflow-x-auto custom-scrollbar bg-slate-200/50 p-4 border border-slate-300 rounded-b-lg">
+      <div class="flex items-start gap-6 min-w-max">
+
+        <!-- SCREEN 01: INTAKE -->
+        <div class="flex flex-col">
+          <div class="mb-2 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono font-bold px-2 py-0.5 bg-slate-800 text-white rounded">01</span>
+              <span class="text-xs font-mono font-semibold tracking-wider text-slate-700 uppercase">UPLOAD ADS</span>
+            </div>
+            <span class="text-[10px] font-mono text-slate-500">Step 1: Ingest</span>
+          </div>
+
+          <div class="wf-screen flex flex-col" id="screen01">
+            <div class="h-7 bg-slate-200 border-b border-slate-400 px-3 flex items-center justify-between text-[10px] text-slate-600 font-mono">
+              <div class="flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-slate-400"></span>
+                <span class="w-2 h-2 rounded-full bg-slate-400"></span>
+                <span class="w-2 h-2 rounded-full bg-slate-400"></span>
+                <span class="ml-2 font-semibold">Vanta • Upload &amp; Setup</span>
+              </div>
+              <span>v1.0</span>
+            </div>
+
+            <div class="h-9 border-b border-slate-300 px-3 flex items-center justify-between bg-slate-50 text-xs">
+              <div class="flex items-center gap-2">
+                <span class="font-bold tracking-tight text-slate-900 font-mono text-[11px]">VANTA</span>
+                <span class="text-slate-300">|</span>
+                <span class="text-[10px] text-slate-600">Client: <span class="font-semibold text-slate-800">Acme DTC</span></span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <div class="w-14 h-3.5 wf-box rounded-sm"></div>
+                <div class="w-4 h-4 rounded-full border border-slate-400 bg-slate-200"></div>
+              </div>
+            </div>
+
+            <div class="flex flex-1 min-h-[500px]">
+              <div class="w-24 border-r border-slate-300 p-2 bg-slate-50 flex flex-col justify-between text-[9px] font-mono">
+                <div class="space-y-1.5">
+                  <div class="p-1 bg-slate-200 font-bold border-l-2 border-slate-900 text-slate-900">1. Upload</div>
+                  <div class="p-1 text-slate-500 hover:text-slate-800 cursor-pointer" onclick="scrollToScreen('screen02')">2. Timeline</div>
+                  <div class="p-1 text-slate-500 hover:text-slate-800 cursor-pointer" onclick="scrollToScreen('screen03')">3. Proof</div>
+                  <div class="p-1 text-slate-500 hover:text-slate-800 cursor-pointer" onclick="scrollToScreen('screen04')">4. Compare</div>
+                  <div class="p-1 text-slate-500 hover:text-slate-800 cursor-pointer" onclick="scrollToScreen('screen05')">5. Sign-off</div>
+                </div>
+                <div class="p-1 border border-slate-300 rounded bg-white text-center text-[8px] text-slate-500">
+                  Ready
+                </div>
+              </div>
+
+              <div class="flex-1 p-3 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between border-b border-slate-200 pb-1.5 mb-2.5">
+                    <div>
+                      <h2 class="text-xs font-bold uppercase tracking-wider text-slate-800 font-mono">Campaign Intake</h2>
+                      <p class="text-[9px] text-slate-500">Channel: Meta 9:16 Video Ads</p>
+                    </div>
+                    <span class="text-[9px] font-mono px-1.5 py-0.5 border border-slate-300 bg-slate-100 rounded">
+                      #Q3-Launch
+                    </span>
+                  </div>
+
+                  <div class="wf-box-dashed p-3 rounded text-center mb-2.5">
+                    <div class="w-7 h-7 mx-auto mb-1 wf-image-placeholder rounded"></div>
+                    <div class="text-[10px] font-semibold text-slate-700">Drop Video Ad Files Here</div>
+                    <div class="text-[8px] text-slate-500 mt-0.5">MP4 or MOV formats (Up to 3 variations)</div>
+                    <div class="mt-2 flex justify-center gap-1.5">
+                      <button class="px-2 py-0.5 bg-slate-800 text-white text-[9px] font-mono rounded">Choose Files</button>
+                      <button onclick="simulateIngest()" class="px-2 py-0.5 border border-slate-400 bg-white text-[9px] font-mono rounded hover:bg-slate-50">Upload Demo</button>
+                    </div>
+                  </div>
+
+                  <div class="border border-slate-200 rounded p-2 mb-2.5 bg-slate-50 space-y-1 text-[9px]">
+                    <div class="flex items-center justify-between">
+                      <span class="text-slate-600">Selected Brand Rules:</span>
+                      <span class="font-mono font-medium border border-slate-300 px-1 bg-white rounded text-[8px]">Brand_Guidelines_2026.pdf</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                      <span class="text-slate-600">Scan Resolution:</span>
+                      <span class="font-mono text-slate-800">Every 0.5s + Cuts</span>
+                    </div>
+                  </div>
+
+                  <div class="text-[9px] font-mono font-semibold text-slate-700 mb-1 flex justify-between items-center">
+                    <span>UPLOADED ADS (3)</span>
+                    <span class="text-[8px] text-slate-500 font-normal">Ready for Check</span>
+                  </div>
+
+                  <div class="space-y-1.5">
+                    <div class="border border-slate-300 rounded p-1.5 bg-white flex items-center justify-between text-[9px]">
+                      <div class="flex items-center gap-1.5">
+                        <div class="w-6 h-6 wf-image-placeholder rounded-sm"></div>
+                        <div>
+                          <div class="font-semibold text-slate-800 font-mono">var_A_hook_punch.mp4</div>
+                          <div class="text-[8px] text-slate-500">1080x1920 • 15s • Scanned</div>
+                        </div>
+                      </div>
+                      <span class="text-[8px] font-mono px-1 py-0.2 bg-slate-100 border border-slate-300 rounded text-slate-700">Ready</span>
+                    </div>
+
+                    <div class="border border-slate-400 rounded p-1.5 bg-slate-100 flex items-center justify-between text-[9px]">
+                      <div class="flex items-center gap-1.5">
+                        <div class="w-6 h-6 wf-image-placeholder rounded-sm"></div>
+                        <div>
+                          <div class="font-semibold text-slate-800 font-mono">var_B_problem_first.mp4</div>
+                          <div class="text-[8px] text-slate-500">1080x1920 • 15s • Audio check (82%)</div>
+                        </div>
+                      </div>
+                      <div class="w-14">
+                        <div class="h-1 bg-slate-300 rounded-full overflow-hidden">
+                          <div class="h-full bg-slate-800 w-4/5"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="border border-slate-300 rounded p-1.5 bg-white flex items-center justify-between text-[9px]">
+                      <div class="flex items-center gap-1.5">
+                        <div class="w-6 h-6 wf-image-placeholder rounded-sm"></div>
+                        <div>
+                          <div class="font-semibold text-slate-800 font-mono">var_C_founder_story.mp4</div>
+                          <div class="text-[8px] text-slate-500">1080x1920 • 18s • Scanned</div>
+                        </div>
+                      </div>
+                      <span class="text-[8px] font-mono px-1 py-0.2 bg-slate-100 border border-slate-300 rounded text-slate-700">Ready</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="border-t border-slate-300 pt-2 mt-2 flex items-center justify-between">
+                  <span class="text-[8px] font-mono text-slate-500">All files valid (3/3)</span>
+                  <button onclick="scrollToScreen('screen02')" class="px-2.5 py-1 bg-slate-900 text-white text-[9px] font-mono font-semibold rounded flex items-center gap-1 hover:bg-slate-800">
+                    <span>Open Timeline Review</span>
+                    <span>→</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-2.5 p-2 bg-white border border-slate-300 rounded text-[10px] space-y-0.5">
+            <div class="font-bold text-slate-800 text-[9px] font-mono uppercase">SCREEN 01 NOTES</div>
+            <p class="text-slate-600"><span class="font-medium text-slate-700">User Goal:</span> Upload ad files and bind brand guidelines.</p>
+            <p class="text-slate-600"><span class="font-medium text-slate-700">Next Action:</span> Advance to diagnostics once parsed.</p>
+          </div>
+        </div>
+
+        <!-- Connector 1 -> 2 -->
+        <div class="self-center flex flex-col items-center justify-center pt-24 px-1">
+          <span class="text-[9px] font-mono text-slate-500 mb-1">Parsed</span>
+          <span class="text-slate-400 font-bold text-lg">→</span>
+        </div>
+
+        <!-- SCREEN 02: DIAGNOSTICS -->
+        <div class="flex flex-col">
+          <div class="mb-2 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono font-bold px-2 py-0.5 bg-slate-800 text-white rounded">02</span>
+              <span class="text-xs font-mono font-semibold tracking-wider text-slate-700 uppercase">TIMELINE REVIEW</span>
+            </div>
+            <span class="text-[10px] font-mono text-slate-500">Step 2: Diagnostics</span>
+          </div>
+
+          <div class="wf-screen flex flex-col" id="screen02">
+            <div class="h-7 bg-slate-200 border-b border-slate-400 px-3 flex items-center justify-between text-[10px] text-slate-600 font-mono">
+              <span class="font-semibold">Vanta • Timeline Doctor</span>
+              <span>Asset: var_A</span>
+            </div>
+
+            <div class="h-9 border-b border-slate-300 px-3 flex items-center justify-between bg-slate-50 text-xs">
+              <div class="flex items-center gap-2">
+                <span class="font-mono font-bold text-slate-800 text-[10px]">var_A_hook_punch.mp4</span>
+                <span class="text-[9px] font-mono px-1 py-0.2 border border-slate-300 bg-white rounded">15s</span>
+              </div>
+              <span id="scoreBadgeS2" class="font-mono font-bold px-1.5 py-0.5 bg-slate-800 text-white text-[9px] rounded">64/100</span>
+            </div>
+
+            <div class="p-3 flex-1 flex flex-col justify-between min-h-[500px]">
+              <div>
+                <div class="grid grid-cols-12 gap-2 mb-2">
+                  <div class="col-span-5 border border-slate-400 rounded p-1.5 bg-slate-100 flex flex-col items-center">
+                    <div class="w-full h-36 wf-image-placeholder rounded flex items-center justify-center relative">
+                      <span class="bg-white/90 border border-slate-500 px-1.5 py-0.5 text-[8px] font-mono font-bold text-center">
+                        PREVIEW<br><span id="currentTimestampLabel" class="text-slate-600">00:01.8</span>
+                      </span>
+                      <div class="absolute bottom-3 left-2 right-2 border-2 border-dashed border-red-700 bg-white/70 h-6 flex items-center justify-center text-[7px] font-mono font-bold text-slate-800">
+                        [Text: "STOP SCROLLING"]
+                      </div>
+                    </div>
+                    <div class="w-full mt-1.5 flex items-center justify-between text-[8px] font-mono text-slate-600">
+                      <button onclick="togglePlaybackDemo()" id="btnPlayDemo" class="px-1 border border-slate-300 bg-white rounded font-bold hover:bg-slate-200">▶</button>
+                      <span id="playheadCounter">00:01.8 / 15s</span>
+                      <button onclick="selectFlag('flag1')" class="px-1 border border-slate-300 bg-white rounded hover:bg-slate-100">Jump Flag</button>
+                    </div>
+                  </div>
+
+                  <div class="col-span-7 border border-slate-300 rounded p-2 bg-white flex flex-col justify-between">
+                    <div>
+                      <div class="flex items-center justify-between border-b border-slate-200 pb-1 mb-1">
+                        <span class="text-[9px] font-mono font-bold text-slate-700">HEALTH CURVES</span>
+                        <span class="text-[7px] font-mono text-slate-500">Live Sync</span>
+                      </div>
+                      <div class="space-y-1.5 text-[8px] font-mono">
+                        <div>
+                          <div class="flex justify-between text-slate-600">
+                            <span>Visual Energy</span>
+                            <span class="font-bold">Fast-Paced</span>
+                          </div>
+                          <div class="h-4 border border-slate-300 rounded bg-slate-50 relative overflow-hidden flex items-center px-1">
+                            <svg class="w-full h-3 text-slate-600" preserveAspectRatio="none" viewBox="0 0 100 20">
+                              <path d="M0,15 Q20,2 40,12 T70,5 T100,10" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+                            </svg>
+                            <div id="curvePlayheadPin" class="absolute top-0 bottom-0 left-[24%] w-0.5 bg-slate-900"></div>
+                          </div>
+                        </div>
+
+                        <div>
+                          <div class="flex justify-between text-slate-600">
+                            <span>Voice Speed</span>
+                            <span class="font-bold">3.2 wps</span>
+                          </div>
+                          <div class="h-4 border border-slate-300 rounded bg-slate-50 relative overflow-hidden flex items-center px-1">
+                            <svg class="w-full h-3 text-slate-500" preserveAspectRatio="none" viewBox="0 0 100 20">
+                              <path d="M0,10 Q25,18 50,8 T80,14 T100,6" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+                            </svg>
+                            <div class="absolute top-0 bottom-0 left-[24%] w-0.5 bg-slate-900"></div>
+                          </div>
+                        </div>
+
+                        <div>
+                          <div class="flex justify-between text-slate-600">
+                            <span>Safe Margin</span>
+                            <span class="font-bold text-red-700">Cut Off @ 1.8s</span>
+                          </div>
+                          <div class="h-4 border border-slate-300 rounded bg-slate-50 relative overflow-hidden flex items-center px-1">
+                            <svg class="w-full h-3 text-slate-600" preserveAspectRatio="none" viewBox="0 0 100 20">
+                              <path d="M0,4 L30,4 L40,18 L70,18 L80,4 L100,4" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+                            </svg>
+                            <div class="absolute top-0 bottom-0 left-[24%] w-0.5 bg-slate-900"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="text-[7px] font-mono text-slate-500 border-t border-slate-200 pt-1 mt-1 flex justify-between">
+                      <span>Second 01.8</span>
+                      <span class="text-red-700 font-semibold">1 Defect Active</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="border border-slate-300 rounded p-1.5 bg-slate-50 mb-2">
+                  <div class="relative h-5 bg-slate-200 border border-slate-400 rounded flex items-center px-2 cursor-pointer" onclick="scrubTimeline(event)">
+                    <div id="timelinePlayhead" class="absolute left-[24%] top-0 bottom-0 w-1 bg-slate-900 flex flex-col items-center">
+                      <span class="w-2 h-1.5 bg-slate-900 -top-1 absolute rotate-45"></span>
+                    </div>
+                    <div class="absolute left-[24%] -top-2 cursor-pointer" onclick="selectFlag('flag1')" title="Flag 1">
+                      <span class="text-[9px] text-red-700 font-bold">▲</span>
+                    </div>
+                    <div class="absolute left-[58%] -top-2 cursor-pointer" onclick="selectFlag('flag2')" title="Flag 2">
+                      <span class="text-[9px] text-amber-600">▲</span>
+                    </div>
+                    <div class="w-full flex justify-between text-[7px] font-mono text-slate-400 select-none">
+                      <span>| Hook (0-3s)</span>
+                      <span>| Story (3-12s)</span>
+                      <span>| CTA (12-15s)</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="border-2 border-slate-800 rounded p-1.5 bg-white flex items-center justify-between" id="activeDefectCard">
+                  <div>
+                    <div class="flex items-center gap-1">
+                      <span class="font-mono text-[8px] font-bold px-1 bg-slate-900 text-white rounded">FLAG #1</span>
+                      <span class="text-[9px] font-bold text-slate-800" id="defectTitle">Text Covered by App Icons</span>
+                    </div>
+                    <div class="text-[8px] text-slate-500 mt-0.5" id="defectDescription">
+                      At 00:01.8: Headline sits where TikTok/IG UI overlays cover words.
+                    </div>
+                  </div>
+                  <button onclick="scrollToScreen('screen03')" class="px-2 py-0.5 bg-slate-800 text-white text-[8px] font-mono rounded hover:bg-slate-700">
+                    See Proof →
+                  </button>
+                </div>
+              </div>
+
+              <div class="border-t border-slate-300 pt-2 mt-2 flex items-center justify-between text-[8px] font-mono text-slate-500">
+                <span>Timeline scrubber with synchronized curves</span>
+                <button onclick="selectFlag('flag1')" class="text-slate-800 font-bold underline">Review Flag 1</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-2.5 p-2 bg-white border border-slate-300 rounded text-[10px] space-y-0.5">
+            <div class="font-bold text-slate-800 text-[9px] font-mono uppercase">SCREEN 02 NOTES</div>
+            <p class="text-slate-600"><span class="font-medium text-slate-700">User Goal:</span> Scrub video timeline to spot retention drops &amp; legibility flaws.</p>
+            <p class="text-slate-600"><span class="font-medium text-slate-700">Next Action:</span> Click flag marker (▲) to inspect evidence drawer.</p>
+          </div>
+        </div>
+
+        <!-- Connector 2 -> 3 -->
+        <div class="self-center flex flex-col items-center justify-center pt-24 px-1">
+          <span class="text-[9px] font-mono text-slate-500 mb-1">Click Flag</span>
+          <span class="text-slate-400 font-bold text-lg">→</span>
+        </div>
+
+        <!-- SCREEN 03: EVIDENCE -->
+        <div class="flex flex-col">
+          <div class="mb-2 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono font-bold px-2 py-0.5 bg-slate-800 text-white rounded">03</span>
+              <span class="text-xs font-mono font-semibold tracking-wider text-slate-700 uppercase">INSPECT PROOF</span>
+            </div>
+            <span class="text-[10px] font-mono text-slate-500">Step 3: Evidence</span>
+          </div>
+
+          <div class="wf-screen flex flex-col" id="screen03">
+            <div class="h-7 bg-slate-200 border-b border-slate-400 px-3 flex items-center justify-between text-[10px] text-slate-600 font-mono">
+              <span class="font-semibold">Vanta • Issue Proof Drawer</span>
+              <span>Frame: 00:01.8</span>
+            </div>
+
+            <div class="h-9 border-b border-slate-300 px-3 flex items-center justify-between bg-slate-50 text-xs">
+              <span class="font-mono text-[10px] text-slate-600">Inspecting Flag #1</span>
+              <span class="text-[9px] font-mono px-1.5 py-0.2 bg-slate-200 border border-slate-400 rounded">Fail-Closed</span>
+            </div>
+
+            <div class="flex-1 flex min-h-[500px]">
+              <div class="w-16 border-r border-slate-300 p-1.5 bg-slate-100 opacity-60 flex flex-col justify-between text-[8px] font-mono">
+                <div class="space-y-1">
+                  <div class="h-3 wf-box"></div>
+                  <div class="h-10 wf-image-placeholder"></div>
+                </div>
+                <span class="text-slate-400">Background</span>
+              </div>
+
+              <div class="flex-1 bg-white p-3 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between border-b border-slate-300 pb-1.5 mb-2">
+                    <h2 class="text-xs font-bold uppercase tracking-wider text-slate-900 font-mono">Empirical Proof</h2>
+                    <span class="text-[9px] font-mono text-slate-500">Frame #54</span>
+                  </div>
+
+                  <div class="border border-slate-300 rounded p-2 bg-slate-50 mb-2">
+                    <div class="h-20 wf-image-placeholder rounded mb-1.5 relative flex items-center justify-center">
+                      <div class="border-2 border-dashed border-red-700 bg-white/80 p-1 text-[7px] font-mono text-center">
+                        <span class="block font-bold text-red-800">CROPPED OVERLAY REGION</span>
+                        <span>Y: 1680px (Margin violation)</span>
+                      </div>
+                    </div>
+                    <div class="space-y-0.5 text-[8px] font-mono bg-white border border-slate-200 p-1 rounded">
+                      <div class="flex justify-between">
+                        <span class="text-slate-500">OCR Found:</span>
+                        <span class="font-bold text-slate-800">"STOP SCROLLING"</span>
+                      </div>
+                      <div class="flex justify-between">
+                        <span class="text-slate-500">Platform Margin:</span>
+                        <span class="font-bold text-red-700">FAIL (Bottom overlap)</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="border border-slate-200 rounded p-1.5 bg-white mb-2 text-[8px] font-mono">
+                    <div class="font-bold text-slate-700">PLATFORM SPEC:</div>
+                    <div class="text-slate-600">Keep text inside 80% middle safe zone.</div>
+                  </div>
+
+                  <div class="border border-slate-300 rounded p-2 bg-slate-50">
+                    <div class="text-[8px] font-mono font-bold text-slate-700 mb-1">DECISION / OVERRIDE</div>
+                    <input type="text" id="overrideJustificationInput" placeholder="Override rationale if approving..." 
+                           class="w-full px-1.5 py-0.5 text-[8px] font-mono border border-slate-300 rounded bg-white mb-1.5">
+                    <div class="flex gap-1">
+                      <button onclick="logHumanOverride()" class="flex-1 py-0.5 border border-slate-400 bg-white text-[8px] font-mono rounded hover:bg-slate-100">
+                        Approve Anyway
+                      </button>
+                      <button onclick="confirmDefect()" class="flex-1 py-0.5 border border-slate-900 bg-slate-200 font-bold text-[8px] font-mono rounded hover:bg-slate-300">
+                        Send to Editor
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="border-t border-slate-300 pt-2 mt-2 flex items-center justify-between">
+                  <span class="text-[8px] font-mono text-slate-500" id="auditStatusLabel">Ready to compare</span>
+                  <button onclick="scrollToScreen('screen04')" class="px-2.5 py-1 bg-slate-900 text-white text-[9px] font-mono font-semibold rounded hover:bg-slate-800">
+                    Compare Ads →
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-2.5 p-2 bg-white border border-slate-300 rounded text-[10px] space-y-0.5">
+            <div class="font-bold text-slate-800 text-[9px] font-mono uppercase">SCREEN 03 NOTES</div>
+            <p class="text-slate-600"><span class="font-medium text-slate-700">User Goal:</span> Verify machine claim with empirical frame coordinates.</p>
+            <p class="text-slate-600"><span class="font-medium text-slate-700">Next Action:</span> Request edit or log audit override.</p>
+          </div>
+        </div>
+
+        <!-- Connector 3 -> 4 -->
+        <div class="self-center flex flex-col items-center justify-center pt-24 px-1">
+          <span class="text-[9px] font-mono text-slate-500 mb-1">Pick Best</span>
+          <span class="text-slate-400 font-bold text-lg">→</span>
+        </div>
+
+        <!-- SCREEN 04: DECISION MATRIX -->
+        <div class="flex flex-col">
+          <div class="mb-2 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono font-bold px-2 py-0.5 bg-slate-800 text-white rounded">04</span>
+              <span class="text-xs font-mono font-semibold tracking-wider text-slate-700 uppercase">COMPARE ADS</span>
+            </div>
+            <span class="text-[10px] font-mono text-slate-500">Step 4: Decision</span>
+          </div>
+
+          <div class="wf-screen flex flex-col" id="screen04">
+            <div class="h-7 bg-slate-200 border-b border-slate-400 px-3 flex items-center justify-between text-[10px] text-slate-600 font-mono">
+              <span class="font-semibold">Vanta • Decision Matrix</span>
+              <span>Side-by-Side</span>
+            </div>
+
+            <div class="h-9 border-b border-slate-300 px-3 flex items-center justify-between bg-slate-50 text-xs">
+              <div class="flex items-center gap-1.5 text-[9px] font-mono">
+                <span class="font-bold text-slate-800">PRESET:</span>
+                <select id="presetSelect" onchange="changeStrategyPreset(this.value)" class="border border-slate-400 bg-white px-1 py-0.5 rounded text-[9px] font-mono">
+                  <option value="growth">Growth Focus (Hook 45%)</option>
+                  <option value="brand">Brand Safe (Rules 40%)</option>
+                  <option value="balanced">Balanced Review</option>
+                </select>
+              </div>
+              <span class="text-[8px] font-mono text-slate-500">Auto-calculated</span>
+            </div>
+
+            <div class="p-3 flex-1 flex flex-col justify-between min-h-[500px]">
+              <div>
+                <div class="border border-slate-300 rounded p-2 bg-slate-50 mb-2">
+                  <div class="flex items-center justify-between text-[8px] font-mono font-bold text-slate-700 mb-1">
+                    <span>WEIGHT CONTROLS</span>
+                    <span id="weightSumLabel" class="text-slate-500">Total: 100%</span>
+                  </div>
+                  <div class="grid grid-cols-4 gap-1.5 text-[7px] font-mono">
+                    <div class="border border-slate-200 p-1 bg-white rounded">
+                      <div class="flex justify-between mb-0.5"><span>Hook</span><span id="labelWeightHook" class="font-bold">35%</span></div>
+                      <input type="range" id="sliderHook" min="10" max="60" value="35" oninput="updateWeights()" class="w-full h-1 bg-slate-200 rounded">
+                    </div>
+                    <div class="border border-slate-200 p-1 bg-white rounded">
+                      <div class="flex justify-between mb-0.5"><span>Brand</span><span id="labelWeightBrand" class="font-bold">25%</span></div>
+                      <input type="range" id="sliderBrand" min="10" max="60" value="25" oninput="updateWeights()" class="w-full h-1 bg-slate-200 rounded">
+                    </div>
+                    <div class="border border-slate-200 p-1 bg-white rounded">
+                      <div class="flex justify-between mb-0.5"><span>Pacing</span><span id="labelWeightPacing" class="font-bold">20%</span></div>
+                      <input type="range" id="sliderPacing" min="10" max="60" value="20" oninput="updateWeights()" class="w-full h-1 bg-slate-200 rounded">
+                    </div>
+                    <div class="border border-slate-200 p-1 bg-white rounded">
+                      <div class="flex justify-between mb-0.5"><span>CTA</span><span id="labelWeightConversion" class="font-bold">20%</span></div>
+                      <input type="range" id="sliderConversion" min="10" max="60" value="20" oninput="updateWeights()" class="w-full h-1 bg-slate-200 rounded">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="border border-slate-400 rounded overflow-hidden mb-2">
+                  <table class="w-full text-left border-collapse text-[9px] font-mono">
+                    <thead>
+                      <tr class="bg-slate-200 border-b border-slate-400 text-slate-700 text-[8px]">
+                        <th class="p-1 border-r border-slate-300">CRITERION</th>
+                        <th class="p-1 border-r border-slate-300">VAR A</th>
+                        <th class="p-1 border-r border-slate-300 bg-slate-300 font-bold text-slate-900">VAR B ★</th>
+                        <th class="p-1">VAR C</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 bg-white">
+                      <tr class="bg-slate-50 font-bold">
+                        <td class="p-1 border-r border-slate-300">TOTAL</td>
+                        <td class="p-1 border-r border-slate-300" id="matrixScoreA">64</td>
+                        <td class="p-1 border-r border-slate-300 bg-slate-200 text-slate-900 font-bold text-xs" id="matrixScoreB">88</td>
+                        <td class="p-1" id="matrixScoreC">72</td>
+                      </tr>
+                      <tr>
+                        <td class="p-1 border-r border-slate-300 text-slate-600">1. Hook</td>
+                        <td class="p-1 border-r border-slate-300">92</td>
+                        <td class="p-1 border-r border-slate-300 bg-slate-100 font-semibold">86</td>
+                        <td class="p-1">55</td>
+                      </tr>
+                      <tr>
+                        <td class="p-1 border-r border-slate-300 text-slate-600">2. Brand</td>
+                        <td class="p-1 border-r border-slate-300 text-slate-600">45 (Flaw)</td>
+                        <td class="p-1 border-r border-slate-300 bg-slate-100 font-semibold">91 (Pass)</td>
+                        <td class="p-1">94 (Pass)</td>
+                      </tr>
+                      <tr>
+                        <td class="p-1 border-r border-slate-300 text-slate-600">3. Pacing</td>
+                        <td class="p-1 border-r border-slate-300">62</td>
+                        <td class="p-1 border-r border-slate-300 bg-slate-100 font-semibold">84</td>
+                        <td class="p-1">78</td>
+                      </tr>
+                      <tr>
+                        <td class="p-1 border-r border-slate-300 text-slate-600">4. CTA</td>
+                        <td class="p-1 border-r border-slate-300">58</td>
+                        <td class="p-1 border-r border-slate-300 bg-slate-100 font-semibold">90</td>
+                        <td class="p-1">60</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="border border-slate-300 rounded p-1.5 bg-slate-50 text-[8px] font-mono">
+                  <div class="font-bold text-slate-800" id="topWinnerBanner">Variant B Winner (88/100)</div>
+                  <p class="text-slate-600 text-[8px] mt-0.5">Highest composite score with zero brand boundary violations.</p>
+                </div>
+              </div>
+
+              <div class="border-t border-slate-300 pt-2 mt-2 flex items-center justify-between">
+                <span class="text-[8px] font-mono text-slate-500">Selected: <b>Variant B</b></span>
+                <button onclick="scrollToScreen('screen05')" class="px-2.5 py-1 bg-slate-900 text-white text-[9px] font-mono font-semibold rounded hover:bg-slate-800">
+                  Go to Sign-Off →
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-2.5 p-2 bg-white border border-slate-300 rounded text-[10px] space-y-0.5">
+            <div class="font-bold text-slate-800 text-[9px] font-mono uppercase">SCREEN 04 NOTES</div>
+            <p class="text-slate-600"><span class="font-medium text-slate-700">User Goal:</span> Model strategic goals with dynamic weight sliders.</p>
+            <p class="text-slate-600"><span class="font-medium text-slate-700">Next Action:</span> Confirm winning variant for budget release.</p>
+          </div>
+        </div>
+
+        <!-- Connector 4 -> 5 -->
+        <div class="self-center flex flex-col items-center justify-center pt-24 px-1">
+          <span class="text-[9px] font-mono text-slate-500 mb-1">Approve</span>
+          <span class="text-slate-400 font-bold text-lg">→</span>
+        </div>
+
+        <!-- SCREEN 05: FINAL SIGN-OFF -->
+        <div class="flex flex-col">
+          <div class="mb-2 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono font-bold px-2 py-0.5 bg-slate-800 text-white rounded">05</span>
+              <span class="text-xs font-mono font-semibold tracking-wider text-slate-700 uppercase">FINAL SIGN-OFF</span>
+            </div>
+            <span class="text-[10px] font-mono text-slate-500">Step 5: Sign-off</span>
+          </div>
+
+          <div class="wf-screen flex flex-col" id="screen05">
+            <div class="h-7 bg-slate-200 border-b border-slate-400 px-3 flex items-center justify-between text-[10px] text-slate-600 font-mono">
+              <span class="font-semibold">Vanta • Campaign Sign-Off Packet</span>
+              <span>#DP-0417</span>
+            </div>
+
+            <div class="h-9 border-b border-slate-300 px-3 flex items-center justify-between bg-slate-50 text-xs">
+              <span class="text-[9px] font-mono text-slate-700">Approved: <b>var_B_problem_first.mp4</b></span>
+              <span class="text-[8px] font-mono px-1.5 py-0.2 bg-emerald-100 text-emerald-800 border border-emerald-300 rounded font-semibold">Cleared</span>
+            </div>
+
+            <div class="p-3 flex-1 flex flex-col justify-between min-h-[500px]">
+              <div>
+                <div class="border-2 border-slate-900 rounded p-2 bg-slate-100 mb-2 flex items-center justify-between">
+                  <div>
+                    <div class="text-[8px] font-mono uppercase text-slate-500 font-semibold">STATUS</div>
+                    <div class="text-xs font-bold font-mono text-slate-900">APPROVED FOR LAUNCH ✓</div>
+                    <div class="text-[8px] text-slate-600 font-mono mt-0.5">$25,000 Budget Unlocked</div>
+                  </div>
+                  <div class="border border-slate-900 px-2 py-0.5 bg-white text-center font-mono">
+                    <span class="block text-[7px] text-slate-500">SCORE</span>
+                    <span class="text-xs font-bold text-slate-900" id="finalPacketIndex">88/100</span>
+                  </div>
+                </div>
+
+                <div class="border border-slate-300 rounded p-1.5 bg-white mb-2 text-[8px] font-mono">
+                  <div class="flex items-center justify-between font-bold text-slate-800 mb-1 border-b border-slate-200 pb-0.5">
+                    <span>CRITERIA BREAKDOWN</span>
+                    <span>SCORE</span>
+                  </div>
+                  <div class="space-y-0.5">
+                    <div class="flex justify-between text-slate-600"><span>1. Opening Hook:</span><span class="font-bold text-slate-900">86/100</span></div>
+                    <div class="flex justify-between text-slate-600"><span>2. Brand Compliance:</span><span class="font-bold text-slate-900">91/100</span></div>
+                    <div class="flex justify-between text-slate-600"><span>3. Video Pacing:</span><span class="font-bold text-slate-900">84/100</span></div>
+                    <div class="flex justify-between text-slate-600"><span>4. Call-to-Action:</span><span class="font-bold text-slate-900">90/100</span></div>
+                  </div>
+                </div>
+
+                <div class="border border-slate-300 rounded p-1.5 bg-slate-50 mb-2 text-[8px] font-mono">
+                  <div class="flex items-center justify-between font-bold text-slate-700 mb-1">
+                    <span>SAFETY CHECKS (4/4 PASSED)</span>
+                    <span class="text-emerald-700">All Clear</span>
+                  </div>
+                  <div class="space-y-0.5 text-slate-600 text-[7.5px]">
+                    <div>✓ Text clear of app buttons and safe zones</div>
+                    <div>✓ Brand fonts and hex colors compliant</div>
+                    <div>✓ Required legal disclaimers present</div>
+                    <div>✓ Audio volume meets platform standards</div>
+                  </div>
+                </div>
+
+                <div class="border border-slate-200 rounded p-1.5 bg-white text-[8px] font-mono flex items-center justify-between">
+                  <div>
+                    <div class="text-slate-400 text-[7px]">SIGNED OFF BY:</div>
+                    <div class="font-bold text-slate-800">Growth Lead &amp; Creative Dir.</div>
+                  </div>
+                  <span class="px-1.5 py-0.5 bg-slate-100 border border-slate-300 rounded font-bold text-slate-700 text-[8px]">LOCKED</span>
+                </div>
+              </div>
+
+              <div class="border-t border-slate-300 pt-2 mt-2 flex items-center justify-between">
+                <button onclick="viewRawJsonAudit()" class="px-2 py-0.5 border border-slate-400 bg-white text-[8px] font-mono rounded hover:bg-slate-50">
+                  Copy Summary
+                </button>
+                <button onclick="runLiveClearanceAudit()" class="px-2.5 py-1 bg-slate-900 text-white text-[9px] font-mono font-semibold rounded hover:bg-slate-800">
+                  Download PDF Report ↓
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-2.5 p-2 bg-white border border-slate-300 rounded text-[10px] space-y-0.5">
+            <div class="font-bold text-slate-800 text-[9px] font-mono uppercase">SCREEN 05 NOTES</div>
+            <p class="text-slate-600"><span class="font-medium text-slate-700">User Goal:</span> Export 1-page signed dossier clearing campaign budget.</p>
+            <p class="text-slate-600"><span class="font-medium text-slate-700">Outcome:</span> Eliminates ungrounded spend with auditable governance.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- SECTION 02: HIGH-FIDELITY PRODUCT JOURNEY (The 5 Finished Product Screens) -->
+  <!-- ========================================================================= -->
+  <section id="section-hifi" class="w-full max-w-[2700px] mb-12 scroll-mt-6">
+    
+    <!-- Section Header Strip -->
+    <div class="bg-white border border-slate-300 rounded-t-lg p-4 border-b-0 shadow-sm">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-[10px] font-mono font-bold px-2 py-0.5 bg-blue-600 text-white rounded">
+              SECTION 02
+            </span>
+            <span class="text-xs font-mono font-bold text-slate-900">
+              HIGH-FIDELITY PRODUCT JOURNEY (THE 5 CORE APPLICATION SCREENS)
+            </span>
+          </div>
+          <p class="text-xs text-slate-600 max-w-3xl">
+            A high-fidelity visual pass over the same core journey, built on Vanta's documented architecture: Creative Twin, Brand Brain, the five-class Evidence Layer, Timeline Doctor, Decision Matrix, and the Decision Packet. Color is reserved only for evidence classes.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2 text-[10px] font-mono text-slate-500 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span>Grounded Architecture · 5-Class Evidence Active</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Horizontal High-Fi Board Container -->
+    <div class="w-full overflow-x-auto custom-scrollbar p-6 border border-slate-300 rounded-b-lg" style="background: var(--hfp-canvas);">
+      <div class="flex items-start gap-4 min-w-max">
+
+        <!-- 01 · INTAKE -->
+        <div class="flex flex-col items-start">
+          <div class="font-mono text-[10.5px] font-bold text-white px-2.5 py-1 rounded-full mb-3" style="background: var(--hfp-accent);">
+            01 · INTAKE
+          </div>
+
+          <div class="hfp-frame">
+            <div>
+              <div class="hfp-chrome">
+                <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+                <div class="hfp-url">app.vanta.io/workspace/intake</div>
+              </div>
+
+              <div class="hfp-nav">
+                <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 16 16">
+                  <polygon points="8,1 15,14 1,14" fill="none" stroke="#1F2B4D" stroke-width="1.6"/>
+                  <polygon points="8,7 11.5,14 4.5,14" fill="#1F2B4D"/>
+                </svg>
+                <span class="font-mono font-bold text-xs tracking-wider" style="color: var(--hfp-ink);">VANTA</span>
+                <span class="hfp-ws-pill">Acme Growth <svg class="icon w-2.5 h-2.5"><use href="#i-chevron"/></svg></span>
+                <div class="flex-1"></div>
+                <div class="text-slate-400 p-1"><svg class="icon"><use href="#i-search"/></svg></div>
+                <div class="text-slate-400 p-1"><svg class="icon"><use href="#i-bell"/></svg></div>
+                <div class="w-5 h-5 rounded-full bg-slate-800 text-white font-mono text-[9px] font-bold flex items-center justify-center">RS</div>
+              </div>
+
+              <div class="hfp-tabs font-mono">
+                <div class="hfp-tab active">Intake</div>
+                <div class="hfp-tab">Timeline Doctor</div>
+                <div class="hfp-tab">Evidence</div>
+                <div class="hfp-tab">Decision Matrix</div>
+                <div class="hfp-tab">Packet</div>
+              </div>
+
+              <div class="hfp-body">
+                <div class="flex justify-between items-start">
+                  <div>
+                    <p class="text-[11px] text-slate-400 mb-0.5">Acme Growth / Q3 Launch</p>
+                    <h2 class="text-sm font-bold tracking-tight" style="color: var(--hfp-ink);">New creative intake</h2>
+                  </div>
+                  <button class="text-[10px] font-semibold px-2.5 py-1 rounded border border-slate-300 bg-white hover:bg-slate-50">Save draft</button>
+                </div>
+
+                <div class="hfp-card">
+                  <div class="hfp-card-label">Creative intake</div>
+                  <div class="hfp-dropzone">
+                    <svg class="icon w-5 h-5 text-slate-400"><use href="#i-upload"/></svg>
+                    <div class="text-[10.5px] font-semibold text-slate-700">Drop script, storyboard, or media file</div>
+                    <div class="text-[9.5px] text-slate-400">or import from a connected source</div>
+                  </div>
+                  <div class="text-[9.5px] text-slate-500 mt-2 mb-1">Campaign name</div>
+                  <div class="hfp-field">Q3 — Weekend Getaway Bundle</div>
+                  <div class="grid grid-cols-2 gap-2 mt-2">
+                    <div>
+                      <div class="text-[9.5px] text-slate-500 mb-1">Objective</div>
+                      <div class="hfp-field">Conversion <svg class="icon w-2.5 h-2.5"><use href="#i-chevron"/></svg></div>
+                    </div>
+                    <div>
+                      <div class="text-[9.5px] text-slate-500 mb-1">Audience segment</div>
+                      <div class="hfp-field">Returning users <svg class="icon w-2.5 h-2.5"><use href="#i-chevron"/></svg></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="hfp-card hfp-card-alt text-[10.5px] space-y-1.5">
+                  <div class="hfp-card-label">Brand Brain — codex reference</div>
+                  <div class="flex items-center gap-2 text-slate-700"><svg class="icon text-emerald-600"><use href="#i-check"/></svg>Approved claims</div>
+                  <div class="flex items-center gap-2 text-slate-700"><svg class="icon text-emerald-600"><use href="#i-check"/></svg>Prohibited language</div>
+                  <div class="flex items-center gap-2 text-slate-700"><svg class="icon text-emerald-600"><use href="#i-check"/></svg>Audience segments</div>
+                  <div class="flex items-center gap-2 text-amber-700"><svg class="icon text-amber-600"><use href="#i-alert"/></svg>Compliance boundaries — 1 flagged</div>
+                </div>
+
+                <div class="hfp-card">
+                  <div class="flex justify-between items-center mb-1.5">
+                    <div class="hfp-card-label mb-0">Creative Twin — parsed output</div>
+                    <span class="hfp-stat-pill sim"><svg class="icon w-2.5 h-2.5"><use href="#i-alert"/></svg>2 gaps flagged</span>
+                  </div>
+                  <div class="hfp-scene-strip">
+                    <div class="hfp-scene"><div class="hfp-scene-thumb">01</div></div>
+                    <div class="hfp-scene flag">
+                      <div class="hfp-scene-thumb">02</div>
+                      <div class="hfp-scene-flagicon"><svg class="icon w-2 h-2 stroke-white stroke-[2.4]"><use href="#i-alert"/></svg></div>
+                    </div>
+                    <div class="hfp-scene"><div class="hfp-scene-thumb">03</div></div>
+                    <div class="hfp-scene flag">
+                      <div class="hfp-scene-thumb">04</div>
+                      <div class="hfp-scene-flagicon"><svg class="icon w-2 h-2 stroke-white stroke-[2.4]"><use href="#i-alert"/></svg></div>
+                    </div>
+                  </div>
+                  <div class="flex justify-between items-center mt-2.5 pt-1">
+                    <span class="hfp-stat-pill ok">148 wpm pacing</span>
+                    <span class="hfp-stat-pill info">6 claims extracted</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hfp-cta-bar">
+              <div class="text-[9.5px] text-slate-400 max-w-[220px] leading-tight">Required intake fields must be complete before diagnostics can run.</div>
+              <button class="px-3 py-1.5 rounded text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800">Run Diagnostic →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Connector 1 -> 2 -->
+        <div class="hfp-connector">
+          <div class="hfp-connector-line"></div>
+          <div class="hfp-connector-caption">Diagnostic runs on parsed Twin</div>
+        </div>
+
+        <!-- 02 · DIAGNOSTICS -->
+        <div class="flex flex-col items-start">
+          <div class="font-mono text-[10.5px] font-bold text-white px-2.5 py-1 rounded-full mb-3" style="background: var(--hfp-accent);">
+            02 · DIAGNOSTICS
+          </div>
+
+          <div class="hfp-frame">
+            <div>
+              <div class="hfp-chrome">
+                <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+                <div class="hfp-url">app.vanta.io/workspace/timeline-doctor</div>
+              </div>
+
+              <div class="hfp-nav">
+                <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 16 16">
+                  <polygon points="8,1 15,14 1,14" fill="none" stroke="#1F2B4D" stroke-width="1.6"/>
+                  <polygon points="8,7 11.5,14 4.5,14" fill="#1F2B4D"/>
+                </svg>
+                <span class="font-mono font-bold text-xs tracking-wider" style="color: var(--hfp-ink);">VANTA</span>
+                <span class="hfp-ws-pill">Acme Growth <svg class="icon w-2.5 h-2.5"><use href="#i-chevron"/></svg></span>
+                <div class="flex-1"></div>
+                <div class="avatar text-[9px] font-mono font-bold w-5 h-5 rounded-full bg-slate-800 text-white flex items-center justify-center">RS</div>
+              </div>
+
+              <div class="hfp-tabs font-mono">
+                <div class="hfp-tab">Intake</div>
+                <div class="hfp-tab active">Timeline Doctor</div>
+                <div class="hfp-tab">Evidence</div>
+                <div class="hfp-tab">Decision Matrix</div>
+                <div class="hfp-tab">Packet</div>
+              </div>
+
+              <div class="hfp-body">
+                <div class="flex justify-between items-start">
+                  <div>
+                    <p class="text-[11px] text-slate-400 mb-0.5">Q3 — Weekend Getaway Bundle</p>
+                    <h2 class="text-sm font-bold tracking-tight" style="color: var(--hfp-ink);">Timeline diagnostics</h2>
+                  </div>
+                  <span class="font-mono text-[10px] text-slate-400">6 scenes · 0:34</span>
+                </div>
+
+                <div class="hfp-card">
+                  <div class="hfp-card-label">Scene timeline</div>
+                  <div class="hfp-scene-strip">
+                    <div class="hfp-scene"><div class="hfp-scene-thumb">1</div><div class="hfp-scene-idx">142wpm</div></div>
+                    <div class="hfp-scene"><div class="hfp-scene-thumb">2</div><div class="hfp-scene-idx">139wpm</div></div>
+                    <div class="hfp-scene flag">
+                      <div class="hfp-scene-thumb">3</div>
+                      <div class="hfp-scene-flagicon"><svg class="icon w-2 h-2 stroke-white stroke-[2.4]"><use href="#i-alert"/></svg></div>
+                      <div class="hfp-scene-idx text-amber-700 font-bold">201wpm</div>
+                    </div>
+                    <div class="hfp-scene"><div class="hfp-scene-thumb">4</div><div class="hfp-scene-idx">145wpm</div></div>
+                    <div class="hfp-scene flag">
+                      <div class="hfp-scene-thumb">5</div>
+                      <div class="hfp-scene-flagicon"><svg class="icon w-2 h-2 stroke-white stroke-[2.4]"><use href="#i-alert"/></svg></div>
+                      <div class="hfp-scene-idx text-slate-400">—</div>
+                    </div>
+                    <div class="hfp-scene"><div class="hfp-scene-thumb">6</div><div class="hfp-scene-idx">140wpm</div></div>
+                  </div>
+                </div>
+
+                <div class="hfp-card">
+                  <div class="hfp-card-label">Edit briefs — scene-level, actionable</div>
+                  
+                  <div class="hfp-brief">
+                    <div class="flex justify-between items-center mb-1">
+                      <span class="font-mono text-[9px] text-slate-500 font-semibold">Scene 3</span>
+                      <span class="chip chip-c4">pacing spike</span>
+                    </div>
+                    <div class="text-[10.5px] text-slate-600 leading-snug">
+                      201 wpm against a 142 wpm baseline — dialogue reads rushed against the visual cut.
+                    </div>
+                    <div class="flex gap-1.5 mt-2">
+                      <button class="px-2 py-0.5 rounded text-[10px] font-semibold border border-slate-300 bg-white hover:bg-slate-50">Apply</button>
+                      <button class="px-2 py-0.5 rounded text-[10px] text-slate-500 hover:text-slate-800">Dismiss</button>
+                    </div>
+                  </div>
+
+                  <div class="hfp-brief mt-2">
+                    <div class="flex justify-between items-center mb-1">
+                      <span class="font-mono text-[9px] text-slate-500 font-semibold">Scene 5</span>
+                      <span class="chip chip-c5">uncited claim</span>
+                    </div>
+                    <div class="text-[10.5px] text-slate-600 leading-snug">
+                      Discount claim has no source attached — will fail the evidence gate as written.
+                    </div>
+                    <div class="flex gap-1.5 mt-2">
+                      <button class="px-2 py-0.5 rounded text-[10px] font-semibold border border-slate-300 bg-white hover:bg-slate-50">Apply</button>
+                      <button class="px-2 py-0.5 rounded text-[10px] text-slate-500 hover:text-slate-800">Dismiss</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hfp-cta-bar">
+              <div class="text-[9.5px] text-slate-400 max-w-[220px] leading-tight">2 edit briefs open. Applying updates the Creative Twin directly.</div>
+              <button class="px-3 py-1.5 rounded text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800">Send to Evidence →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Connector 2 -> 3 -->
+        <div class="hfp-connector">
+          <div class="hfp-connector-line"></div>
+          <div class="hfp-connector-caption">Claims enter 5-class gate</div>
+        </div>
+
+        <!-- 03 · EVIDENCE -->
+        <div class="flex flex-col items-start">
+          <div class="font-mono text-[10.5px] font-bold text-white px-2.5 py-1 rounded-full mb-3" style="background: var(--hfp-accent);">
+            03 · EVIDENCE
+          </div>
+
+          <div class="hfp-frame">
+            <div>
+              <div class="hfp-chrome">
+                <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+                <div class="hfp-url">app.vanta.io/workspace/evidence-layer</div>
+              </div>
+
+              <div class="hfp-nav">
+                <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 16 16">
+                  <polygon points="8,1 15,14 1,14" fill="none" stroke="#1F2B4D" stroke-width="1.6"/>
+                  <polygon points="8,7 11.5,14 4.5,14" fill="#1F2B4D"/>
+                </svg>
+                <span class="font-mono font-bold text-xs tracking-wider" style="color: var(--hfp-ink);">VANTA</span>
+                <span class="hfp-ws-pill">Acme Growth <svg class="icon w-2.5 h-2.5"><use href="#i-chevron"/></svg></span>
+                <div class="flex-1"></div>
+                <div class="avatar text-[9px] font-mono font-bold w-5 h-5 rounded-full bg-slate-800 text-white flex items-center justify-center">RS</div>
+              </div>
+
+              <div class="hfp-tabs font-mono">
+                <div class="hfp-tab">Intake</div>
+                <div class="hfp-tab">Timeline Doctor</div>
+                <div class="hfp-tab active">Evidence</div>
+                <div class="hfp-tab">Decision Matrix</div>
+                <div class="hfp-tab">Packet</div>
+              </div>
+
+              <div class="hfp-body">
+                <div class="flex justify-between items-start">
+                  <div>
+                    <p class="text-[11px] text-slate-400 mb-0.5">Q3 — Weekend Getaway Bundle</p>
+                    <h2 class="text-sm font-bold tracking-tight" style="color: var(--hfp-ink);">Evidence layer</h2>
+                  </div>
+                  <span class="font-mono text-[10px] text-slate-400">18 items</span>
+                </div>
+
+                <div class="flex flex-wrap gap-1.5 mt-2.5 mb-1 text-[10px] font-mono">
+                  <span class="px-2.5 py-0.5 rounded-full bg-slate-900 text-white font-bold">All</span>
+                  <span class="px-2 py-0.5 rounded-full border border-slate-300 bg-white text-slate-600">Observed</span>
+                  <span class="px-2 py-0.5 rounded-full border border-slate-300 bg-white text-slate-600">Sourced</span>
+                  <span class="px-2 py-0.5 rounded-full border border-slate-300 bg-white text-slate-600">Inference</span>
+                  <span class="px-2 py-0.5 rounded-full border border-slate-300 bg-white text-slate-600">Simulation</span>
+                  <span class="px-2 py-0.5 rounded-full border border-amber-300 bg-amber-50 text-amber-800 font-bold flex items-center gap-1">
+                    Unknown <span class="bg-amber-600 text-white px-1 rounded-full text-[8px]">1</span>
+                  </span>
+                </div>
+
+                <div class="hfp-ev-table">
+                  <div class="hfp-ev-row head">
+                    <span>Claim / metric</span><span>Class</span><span>Source</span><span>Status</span>
+                  </div>
+                  <div class="hfp-ev-row">
+                    <span class="font-medium">Prior campaign CTR</span>
+                    <div><span class="chip chip-c1">Observed</span></div>
+                    <span class="text-slate-400 font-mono text-[9px]">Ads connector</span>
+                    <svg class="icon text-emerald-600"><use href="#i-check"/></svg>
+                  </div>
+                  <div class="hfp-ev-row">
+                    <span class="font-medium">Seasonal travel demand</span>
+                    <div><span class="chip chip-c2">Sourced</span></div>
+                    <span class="text-slate-400 font-mono text-[9px]">Industry report ’26</span>
+                    <svg class="icon text-emerald-600"><use href="#i-check"/></svg>
+                  </div>
+                  <div class="hfp-ev-row">
+                    <span class="font-medium">Projected lift, hook v2</span>
+                    <div><span class="chip chip-c3">Inference</span></div>
+                    <span class="text-slate-400 font-mono text-[9px]">Historical model</span>
+                    <svg class="icon text-emerald-600"><use href="#i-check"/></svg>
+                  </div>
+                  <div class="hfp-ev-row blocked">
+                    <span class="font-medium text-amber-900">Weekend discount claim</span>
+                    <div><span class="chip chip-c5">Unknown</span></div>
+                    <span class="text-slate-400 font-mono text-[9px]">—</span>
+                    <svg class="icon text-amber-700"><use href="#i-lock"/></svg>
+                    <div class="col-span-4 text-[9.5px] text-amber-800 flex items-center gap-1.5 border-t border-dashed border-amber-300 pt-1 mt-1">
+                      <svg class="icon w-3 h-3"><use href="#i-lock"/></svg>
+                      <span>Insufficient evidence — fails closed, excluded from scoring.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hfp-cta-bar">
+              <div class="text-[9.5px] text-slate-400 max-w-[220px] leading-tight">1 unresolved Unknown item is blocking Decision Matrix scoring.</div>
+              <button disabled class="px-3 py-1.5 rounded text-xs font-semibold text-slate-400 bg-slate-200 cursor-not-allowed flex items-center gap-1.5">
+                <svg class="icon w-3 h-3"><use href="#i-lock"/></svg>
+                <span>Proceed to Matrix</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Connector 3 -> 4 -->
+        <div class="hfp-connector">
+          <div class="hfp-connector-line"></div>
+          <div class="hfp-connector-caption">Classes resolved — matrix unlocks</div>
+        </div>
+
+        <!-- 04 · DECISION -->
+        <div class="flex flex-col items-start">
+          <div class="font-mono text-[10.5px] font-bold text-white px-2.5 py-1 rounded-full mb-3" style="background: var(--hfp-accent);">
+            04 · DECISION
+          </div>
+
+          <div class="hfp-frame">
+            <div>
+              <div class="hfp-chrome">
+                <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+                <div class="hfp-url">app.vanta.io/workspace/decision-matrix</div>
+              </div>
+
+              <div class="hfp-nav">
+                <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 16 16">
+                  <polygon points="8,1 15,14 1,14" fill="none" stroke="#1F2B4D" stroke-width="1.6"/>
+                  <polygon points="8,7 11.5,14 4.5,14" fill="#1F2B4D"/>
+                </svg>
+                <span class="font-mono font-bold text-xs tracking-wider" style="color: var(--hfp-ink);">VANTA</span>
+                <span class="hfp-ws-pill">Acme Growth <svg class="icon w-2.5 h-2.5"><use href="#i-chevron"/></svg></span>
+                <div class="flex-1"></div>
+                <div class="avatar text-[9px] font-mono font-bold w-5 h-5 rounded-full bg-slate-800 text-white flex items-center justify-center">RS</div>
+              </div>
+
+              <div class="hfp-tabs font-mono">
+                <div class="hfp-tab">Intake</div>
+                <div class="hfp-tab">Timeline Doctor</div>
+                <div class="hfp-tab">Evidence</div>
+                <div class="hfp-tab active">Decision Matrix</div>
+                <div class="hfp-tab">Packet</div>
+              </div>
+
+              <div class="hfp-body">
+                <div class="flex justify-between items-start">
+                  <div>
+                    <p class="text-[11px] text-slate-400 mb-0.5">Q3 — Weekend Getaway Bundle</p>
+                    <h2 class="text-sm font-bold tracking-tight" style="color: var(--hfp-ink);">Decision Matrix</h2>
+                  </div>
+                  <button class="text-[10px] text-slate-600 border border-slate-300 rounded px-2 py-0.5 bg-white flex items-center gap-1">
+                    <svg class="icon w-2.5 h-2.5"><use href="#i-ext"/></svg>Simulation Lab
+                  </button>
+                </div>
+
+                <div class="hfp-matrix">
+                  <div class="hfp-mrow head">
+                    <span>Criterion</span><span>Variant A</span><span>Variant B</span><span>Variant C</span>
+                  </div>
+                  <div class="hfp-mrow text-[10.5px]">
+                    <div><b>Hook strength</b></div>
+                    <div class="flex flex-col"><span>7.2</span><span class="chip chip-c2 w-fit">Sourced</span></div>
+                    <div class="flex flex-col"><span>8.4</span><span class="chip chip-c2 w-fit">Sourced</span></div>
+                    <div class="flex flex-col"><span>6.9</span><span class="chip chip-c2 w-fit">Sourced</span></div>
+                  </div>
+                  <div class="hfp-mrow text-[10.5px]">
+                    <div><b>Claim compliance</b></div>
+                    <div class="flex flex-col"><span>Pass</span><span class="chip chip-c1 w-fit">Observed</span></div>
+                    <div class="flex flex-col"><span>Pass</span><span class="chip chip-c1 w-fit">Observed</span></div>
+                    <div class="flex flex-col"><span class="text-red-600 font-bold">Flag</span><span class="chip chip-c1 w-fit">Observed</span></div>
+                  </div>
+                  <div class="hfp-mrow text-[10.5px]">
+                    <div><b>Predicted lift</b></div>
+                    <div class="flex flex-col"><span>Medium</span><span class="chip chip-c4 w-fit">Simulation</span></div>
+                    <div class="flex flex-col"><span>High</span><span class="chip chip-c4 w-fit">Simulation</span></div>
+                    <div class="flex flex-col"><span>Medium</span><span class="chip chip-c4 w-fit">Simulation</span></div>
+                  </div>
+                  <div class="hfp-mrow recommended text-[10.5px]">
+                    <div><b>Overall</b></div>
+                    <div>7.1</div>
+                    <div>
+                      <span class="font-mono text-[8px] font-bold bg-slate-900 text-white px-1.5 py-0.5 rounded-full block w-fit mb-0.5">Recommended</span>
+                      <b class="text-sm font-mono text-slate-900">8.2</b>
+                    </div>
+                    <div>6.7</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hfp-cta-bar">
+              <div class="text-[9.5px] text-slate-400 max-w-[220px] leading-tight">Scoring is transparent — every cell traces to a typed evidence class.</div>
+              <button class="px-3 py-1.5 rounded text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800">Generate Packet →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Connector 4 -> 5 -->
+        <div class="hfp-connector">
+          <div class="hfp-connector-line"></div>
+          <div class="hfp-connector-caption">Variant B selected as winner</div>
+        </div>
+
+        <!-- 05 · PACKET -->
+        <div class="flex flex-col items-start">
+          <div class="font-mono text-[10.5px] font-bold text-white px-2.5 py-1 rounded-full mb-3" style="background: var(--hfp-accent);">
+            05 · PACKET
+          </div>
+
+          <div class="hfp-frame">
+            <div>
+              <div class="hfp-chrome">
+                <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+                <div class="hfp-url">app.vanta.io/workspace/decision-packet</div>
+              </div>
+
+              <div class="hfp-nav">
+                <svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 16 16">
+                  <polygon points="8,1 15,14 1,14" fill="none" stroke="#1F2B4D" stroke-width="1.6"/>
+                  <polygon points="8,7 11.5,14 4.5,14" fill="#1F2B4D"/>
+                </svg>
+                <span class="font-mono font-bold text-xs tracking-wider" style="color: var(--hfp-ink);">VANTA</span>
+                <span class="hfp-ws-pill">Acme Growth <svg class="icon w-2.5 h-2.5"><use href="#i-chevron"/></svg></span>
+                <div class="flex-1"></div>
+                <div class="avatar text-[9px] font-mono font-bold w-5 h-5 rounded-full bg-slate-800 text-white flex items-center justify-center">RS</div>
+              </div>
+
+              <div class="hfp-tabs font-mono">
+                <div class="hfp-tab">Intake</div>
+                <div class="hfp-tab">Timeline Doctor</div>
+                <div class="hfp-tab">Evidence</div>
+                <div class="hfp-tab">Decision Matrix</div>
+                <div class="hfp-tab active">Packet</div>
+              </div>
+
+              <div class="hfp-body">
+                <div class="flex justify-between items-start">
+                  <div>
+                    <p class="text-[11px] text-slate-400 mb-0.5">Q3 — Weekend Getaway Bundle</p>
+                    <h2 class="text-sm font-bold tracking-tight" style="color: var(--hfp-ink);">Decision Packet</h2>
+                  </div>
+                  <span class="font-mono text-[10px] px-2 py-0.5 rounded-full border border-slate-300 bg-slate-100 text-slate-700">#DP-0417</span>
+                </div>
+
+                <div class="hfp-card">
+                  <div class="hfp-card-label">Recommendation</div>
+                  <p class="text-[10.5px] text-slate-600 mb-2 leading-relaxed">
+                    Variant B carries the strongest hook and highest predicted engagement while passing claim compliance in full.
+                  </p>
+                  <span class="chip chip-c1 font-bold">Variant B — 8.2 overall</span>
+                </div>
+
+                <div class="hfp-card">
+                  <div class="hfp-card-label">Evidence appendix — cited &amp; traceable</div>
+                  <div class="space-y-1.5 text-[10px] text-slate-600">
+                    <div class="flex justify-between items-center">
+                      <span>Ads connector import</span>
+                      <span class="text-blue-600 font-bold flex items-center gap-1 cursor-pointer"><svg class="icon w-2.5 h-2.5"><use href="#i-ext"/></svg>View source</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <span>Industry report, seasonal demand</span>
+                      <span class="text-blue-600 font-bold flex items-center gap-1 cursor-pointer"><svg class="icon w-2.5 h-2.5"><use href="#i-ext"/></svg>View source</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <span>Historical uplift model</span>
+                      <span class="text-blue-600 font-bold flex items-center gap-1 cursor-pointer"><svg class="icon w-2.5 h-2.5"><use href="#i-ext"/></svg>View source</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="border-l-4 border-amber-500 bg-amber-50 rounded-r p-2 text-[10px] text-amber-900 mt-2.5 flex items-center gap-2">
+                  <svg class="icon text-amber-600"><use href="#i-alert"/></svg>
+                  <span>1 item remains Unknown — disclosed in this packet, not hidden.</span>
+                </div>
+
+                <div class="flex gap-2 mt-3 text-[9.5px]">
+                  <span class="border border-slate-300 rounded-full px-2.5 py-0.5 text-slate-700 flex items-center gap-1"><svg class="icon text-emerald-600 w-3 h-3"><use href="#i-check"/></svg>Inspectable</span>
+                  <span class="border border-slate-300 rounded-full px-2.5 py-0.5 text-slate-700 flex items-center gap-1"><svg class="icon text-emerald-600 w-3 h-3"><use href="#i-check"/></svg>Cited</span>
+                  <span class="border border-slate-300 rounded-full px-2.5 py-0.5 text-slate-700 flex items-center gap-1"><svg class="icon text-emerald-600 w-3 h-3"><use href="#i-check"/></svg>Traceable</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="hfp-cta-bar">
+              <div class="text-[9.5px] text-slate-400 max-w-[220px] leading-tight">Packet is a fixed, auditable snapshot of this decision.</div>
+              <div class="flex gap-2">
+                <button class="px-2.5 py-1 rounded text-xs border border-slate-300 bg-white hover:bg-slate-50">Share</button>
+                <button class="px-3 py-1 rounded text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 flex items-center gap-1">
+                  <svg class="icon w-3 h-3 stroke-white"><use href="#i-download"/></svg>Export PDF
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- SECTION 03: PRODUCTION-READY SYSTEM (Toggleable Dark/Light Cockpit) -->
+  <!-- ========================================================================= -->
+  <section id="section-prod" class="w-full max-w-[2700px] mb-12 scroll-mt-6">
+    
+    <!-- Section Header Strip with Theme Toggle -->
+    <div class="bg-white border border-slate-300 rounded-t-lg p-4 border-b-0 shadow-sm">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-[10px] font-mono font-bold px-2 py-0.5 bg-slate-900 text-white rounded">
+              SECTION 03
+            </span>
+            <span class="text-xs font-mono font-bold text-slate-900">
+              PRODUCTION-READY SYSTEM (ENTERPRISE DARK / LIGHT COCKPIT)
+            </span>
+          </div>
+          <p class="text-xs text-slate-600 max-w-3xl">
+            Production-grade UI using Vanta's enterprise design system: Inter typography, <span class="font-mono text-blue-600 font-semibold">#0075de</span> primary branding, interactive screen inspection, and the five-class evidence taxonomy.
+          </p>
+        </div>
+
+        <!-- Right Side: Dark / Light Mode Switcher & Expand Hint -->
+        <div class="flex items-center gap-3">
+          <div class="flex items-center bg-slate-100 p-1 rounded-md border border-slate-200">
+            <button id="btnThemeDark" onclick="setHfTheme('dark')" class="px-2.5 py-1 rounded text-xs font-mono font-semibold flex items-center gap-1.5 transition-all bg-slate-900 text-white shadow-sm">
+              <span>🌙</span>
+              <span>Dark Theme</span>
+            </button>
+            <button id="btnThemeLight" onclick="setHfTheme('light')" class="px-2.5 py-1 rounded text-xs font-mono font-semibold flex items-center gap-1.5 transition-all text-slate-600 hover:text-slate-900">
+              <span>☀️</span>
+              <span>Light Theme</span>
+            </button>
+          </div>
+          <span class="text-[10px] font-mono text-slate-400 hidden lg:inline">Click any screen to expand</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Master High-Fidelity Canvas Container (Styled via Theme Variables) -->
+    <div id="hfContainer" class="hf-dark w-full border border-slate-300 rounded-b-lg p-6 transition-colors duration-200" style="background: var(--hf-bg); color: var(--hf-ink);">
+      
+      <!-- Top Workspace Subhead -->
+      <div class="flex items-center justify-between pb-4 mb-5 border-b" style="border-color: var(--hf-border);">
+        <div class="flex items-center gap-3">
+          <span class="font-mono text-xs font-bold tracking-widest uppercase" style="color: var(--hf-ink-secondary);">VANTA</span>
+          <span class="text-xs" style="color: var(--hf-ink-muted);">|</span>
+          <span class="font-mono text-xs" style="color: var(--hf-ink-muted);">PRODUCTION-READY COCKPIT — 5-STAGE CORE WORKFLOW</span>
+        </div>
+        <div class="flex items-center gap-2 font-mono text-[10px]" style="color: var(--hf-ink-muted);">
+          <span>CAMPAIGN:</span>
+          <span class="px-2 py-0.5 rounded" style="background: var(--hf-surface-raised); border: 1px solid var(--hf-border); color: var(--hf-ink);">Q4 Brand Campaign — Hero Video</span>
+        </div>
+      </div>
+
+      <!-- Expanded Interactive Screen Workbench (Opens on Click) -->
+      <div id="hfExpandedWrapper" class="hidden mb-8 transition-all">
+        <div class="flex items-center justify-between mb-2.5">
+          <div class="flex items-center gap-2">
+            <span id="hfExpandedStageBadge" class="font-mono text-xs font-bold px-2 py-0.5 rounded" style="background: var(--hf-primary); color: #fff;">STAGE 01</span>
+            <span id="hfExpandedTitle" class="font-mono text-xs font-semibold" style="color: var(--hf-ink);">INTAKE — Creative Assets</span>
+          </div>
+          <button onclick="closeHfExpanded()" class="px-3 py-1 rounded text-xs font-mono border hover:opacity-80 transition-opacity" style="background: var(--hf-surface); border-color: var(--hf-border); color: var(--hf-ink);">
+            ✕ Close Expanded View
+          </button>
+        </div>
+        <div id="hfExpandedFrame" class="w-full h-[620px] rounded-lg border overflow-hidden shadow-2xl" style="background: var(--hf-surface); border-color: var(--hf-border);">
+          <!-- Dynamic Expanded Screen Content Injected Here -->
+        </div>
+      </div>
+
+      <!-- Horizontal Thumbnails Flow Strip -->
+      <div class="w-full overflow-x-auto custom-scrollbar pb-3">
+        <div class="flex items-start gap-3 min-w-max">
+
+          <!-- 01 INTAKE THUMBNAIL -->
+          <div class="flex items-center gap-3">
+            <div class="flex flex-col items-center gap-2.5 cursor-pointer group" onclick="openHfExpanded(0)">
+              <div class="w-[230px] h-[162px] rounded-lg border overflow-hidden relative transition-all group-hover:border-blue-500 shadow-md" style="background: var(--hf-surface); border-color: var(--hf-border);">
+                <!-- Scaled Miniature of Screen 01 -->
+                <div class="w-[920px] h-[648px] origin-top-left pointer-events-none select-none p-6 flex flex-col justify-between" style="transform: scale(0.25); background: var(--hf-bg); color: var(--hf-ink);">
+                  <div class="flex justify-between items-center pb-3 border-b" style="border-color: var(--hf-border);">
+                    <div class="flex items-center gap-2 font-mono font-bold text-sm"><span style="color: var(--hf-primary);">●</span> INTAKE · Submit Creative Assets</div>
+                    <span class="text-xs px-2 py-0.5 rounded" style="background: var(--hf-surface-raised); border: 1px solid var(--hf-border);">Brand Codex v2.4</span>
+                  </div>
+                  <div class="p-4 rounded border my-2 text-center" style="background: var(--hf-surface); border-color: var(--hf-border);">
+                    <div class="text-2xl mb-1">⬆</div>
+                    <div class="font-bold text-sm">Drop Video Ad Files Here</div>
+                    <div class="text-xs mt-1" style="color: var(--hf-ink-muted);">MP4 · MOV — Meta 9:16 vertical ratio</div>
+                  </div>
+                  <div class="flex justify-between text-xs pt-2 border-t font-mono" style="border-color: var(--hf-border); color: var(--hf-ink-secondary);">
+                    <span>3 Files Uploaded</span>
+                    <span style="color: var(--hf-obs-text);">✓ Codex Rules Linked</span>
+                  </div>
+                </div>
+                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black/40 transition-opacity">
+                  <span class="text-[10px] font-mono px-2 py-1 rounded bg-blue-600 text-white font-bold">Inspect Screen 01</span>
+                </div>
+              </div>
+              <div class="text-center font-mono">
+                <div class="text-xs font-bold text-blue-500">01</div>
+                <div class="text-[10px] font-semibold uppercase tracking-wider" style="color: var(--hf-ink);">INTAKE</div>
+                <div class="text-[9px]" style="color: var(--hf-ink-muted);">Asset Validation</div>
+              </div>
+            </div>
+            <!-- Arrow -->
+            <div class="text-lg font-bold pb-6" style="color: var(--hf-ink-muted);">→</div>
+          </div>
+
+          <!-- 02 DIAGNOSTICS THUMBNAIL -->
+          <div class="flex items-center gap-3">
+            <div class="flex flex-col items-center gap-2.5 cursor-pointer group" onclick="openHfExpanded(1)">
+              <div class="w-[230px] h-[162px] rounded-lg border overflow-hidden relative transition-all group-hover:border-blue-500 shadow-md" style="background: var(--hf-surface); border-color: var(--hf-border);">
+                <!-- Scaled Miniature of Screen 02 -->
+                <div class="w-[920px] h-[648px] origin-top-left pointer-events-none select-none p-6 flex flex-col justify-between" style="transform: scale(0.25); background: var(--hf-bg); color: var(--hf-ink);">
+                  <div class="flex justify-between items-center pb-3 border-b" style="border-color: var(--hf-border);">
+                    <div class="flex items-center gap-2 font-mono font-bold text-sm"><span>◈</span> TIMELINE DOCTOR · Diagnostics</div>
+                    <span class="text-xs px-2 py-0.5 rounded font-bold" style="background: #ef4444; color: #fff;">2 Edits Required</span>
+                  </div>
+                  <div class="space-y-2 my-2">
+                    <div class="p-3 rounded border" style="background: var(--hf-surface); border-color: #ef4444; border-left: 4px solid #ef4444;">
+                      <div class="flex justify-between text-xs font-bold"><span>Scene 01 (0:00–0:06)</span><span class="text-red-400">Edit Required</span></div>
+                      <div class="text-[11px] mt-1" style="color: var(--hf-ink-secondary);">Logo margin violation — outside 10% safe zone.</div>
+                    </div>
+                    <div class="p-3 rounded border" style="background: var(--hf-surface); border-color: #22c55e; border-left: 4px solid #22c55e;">
+                      <div class="flex justify-between text-xs font-bold"><span>Scene 02 (0:06–0:14)</span><span class="text-emerald-400">Approved ✓</span></div>
+                      <div class="text-[11px] mt-1" style="color: var(--hf-ink-secondary);">Color grading &amp; tone compliant with Brand Codex.</div>
+                    </div>
+                  </div>
+                  <div class="flex justify-between text-xs pt-2 border-t font-mono" style="border-color: var(--hf-border); color: var(--hf-ink-secondary);">
+                    <span>4 / 4 Scenes Parsed</span>
+                    <span style="color: var(--hf-primary);">Scrub needle synchronized</span>
+                  </div>
+                </div>
+                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black/40 transition-opacity">
+                  <span class="text-[10px] font-mono px-2 py-1 rounded bg-blue-600 text-white font-bold">Inspect Screen 02</span>
+                </div>
+              </div>
+              <div class="text-center font-mono">
+                <div class="text-xs font-bold text-blue-500">02</div>
+                <div class="text-[10px] font-semibold uppercase tracking-wider" style="color: var(--hf-ink);">DIAGNOSTICS</div>
+                <div class="text-[9px]" style="color: var(--hf-ink-muted);">Timeline Doctor</div>
+              </div>
+            </div>
+            <!-- Arrow -->
+            <div class="text-lg font-bold pb-6" style="color: var(--hf-ink-muted);">→</div>
+          </div>
+
+          <!-- 03 EVIDENCE THUMBNAIL -->
+          <div class="flex items-center gap-3">
+            <div class="flex flex-col items-center gap-2.5 cursor-pointer group" onclick="openHfExpanded(2)">
+              <div class="w-[230px] h-[162px] rounded-lg border overflow-hidden relative transition-all group-hover:border-blue-500 shadow-md" style="background: var(--hf-surface); border-color: var(--hf-border);">
+                <!-- Scaled Miniature of Screen 03 -->
+                <div class="w-[920px] h-[648px] origin-top-left pointer-events-none select-none p-6 flex flex-col justify-between" style="transform: scale(0.25); background: var(--hf-bg); color: var(--hf-ink);">
+                  <div class="flex justify-between items-center pb-3 border-b" style="border-color: var(--hf-border);">
+                    <div class="flex items-center gap-2 font-mono font-bold text-sm"><span>◉</span> EVIDENCE REGISTRY · 30 Points</div>
+                    <span class="text-xs px-2 py-0.5 rounded font-bold" style="background: #f59e0b; color: #000;">Fail-Closed Active</span>
+                  </div>
+                  <div class="grid grid-cols-5 gap-2 my-2">
+                    <div class="p-2 rounded text-center" style="background: var(--hf-obs-bg); color: var(--hf-obs-text); border: 1px solid var(--hf-obs-border);">
+                      <div class="text-lg font-bold">12</div><div class="text-[10px]">Observed</div>
+                    </div>
+                    <div class="p-2 rounded text-center" style="background: var(--hf-src-bg); color: var(--hf-src-text); border: 1px solid var(--hf-src-border);">
+                      <div class="text-lg font-bold">8</div><div class="text-[10px]">Sourced</div>
+                    </div>
+                    <div class="p-2 rounded text-center" style="background: var(--hf-inf-bg); color: var(--hf-inf-text); border: 1px solid var(--hf-inf-border);">
+                      <div class="text-lg font-bold">5</div><div class="text-[10px]">Inference</div>
+                    </div>
+                    <div class="p-2 rounded text-center" style="background: var(--hf-sim-bg); color: var(--hf-sim-text); border: 1px solid var(--hf-sim-border);">
+                      <div class="text-lg font-bold">3</div><div class="text-[10px]">Simulation</div>
+                    </div>
+                    <div class="p-2 rounded text-center" style="background: var(--hf-unk-bg); color: var(--hf-unk-text); border: 1px solid var(--hf-unk-border);">
+                      <div class="text-lg font-bold">2</div><div class="text-[10px]">Unknown</div>
+                    </div>
+                  </div>
+                  <div class="p-2 rounded text-xs flex items-center gap-2" style="background: #2a1c08; border: 1px solid #5c3a10; color: #fbbf24;">
+                    <span>🔒</span><span>2 Unknown claims — downstream scoring blocked</span>
+                  </div>
+                </div>
+                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black/40 transition-opacity">
+                  <span class="text-[10px] font-mono px-2 py-1 rounded bg-blue-600 text-white font-bold">Inspect Screen 03</span>
+                </div>
+              </div>
+              <div class="text-center font-mono">
+                <div class="text-xs font-bold text-blue-500">03</div>
+                <div class="text-[10px] font-semibold uppercase tracking-wider" style="color: var(--hf-ink);">EVIDENCE</div>
+                <div class="text-[9px]" style="color: var(--hf-ink-muted);">Audit Registry</div>
+              </div>
+            </div>
+            <!-- Arrow -->
+            <div class="text-lg font-bold pb-6" style="color: var(--hf-ink-muted);">→</div>
+          </div>
+
+          <!-- 04 DECISION THUMBNAIL -->
+          <div class="flex items-center gap-3">
+            <div class="flex flex-col items-center gap-2.5 cursor-pointer group" onclick="openHfExpanded(3)">
+              <div class="w-[230px] h-[162px] rounded-lg border overflow-hidden relative transition-all group-hover:border-blue-500 shadow-md" style="background: var(--hf-surface); border-color: var(--hf-border);">
+                <!-- Scaled Miniature of Screen 04 -->
+                <div class="w-[920px] h-[648px] origin-top-left pointer-events-none select-none p-6 flex flex-col justify-between" style="transform: scale(0.25); background: var(--hf-bg); color: var(--hf-ink);">
+                  <div class="flex justify-between items-center pb-3 border-b" style="border-color: var(--hf-border);">
+                    <div class="flex items-center gap-2 font-mono font-bold text-sm"><span>◫</span> DECISION MATRIX · Variant Comparison</div>
+                    <span class="text-xs px-2 py-0.5 rounded font-bold" style="background: var(--hf-primary); color: #fff;">Variant A Recommended</span>
+                  </div>
+                  <div class="grid grid-cols-2 gap-3 my-2">
+                    <div class="p-3 rounded border" style="background: var(--hf-primary-muted); border-color: var(--hf-primary);">
+                      <div class="text-xs font-mono" style="color: var(--hf-ink-muted);">VARIANT A (HERO)</div>
+                      <div class="text-2xl font-bold" style="color: var(--hf-primary);">85 <span class="text-xs font-normal">/ 100</span></div>
+                      <div class="text-xs mt-1" style="color: var(--hf-obs-text);">★ Recommended Winner</div>
+                    </div>
+                    <div class="p-3 rounded border" style="background: var(--hf-surface); border-color: var(--hf-border);">
+                      <div class="text-xs font-mono" style="color: var(--hf-ink-muted);">VARIANT B (15s CUT)</div>
+                      <div class="text-2xl font-bold">78 <span class="text-xs font-normal">/ 100</span></div>
+                      <div class="text-xs mt-1" style="color: var(--hf-ink-muted);">Lower Brand Fit</div>
+                    </div>
+                  </div>
+                  <div class="text-xs pt-2 border-t font-mono" style="border-color: var(--hf-border); color: var(--hf-ink-secondary);">
+                    Traceable scoring: 94 Brand Fit vs 77 Brand Fit
+                  </div>
+                </div>
+                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black/40 transition-opacity">
+                  <span class="text-[10px] font-mono px-2 py-1 rounded bg-blue-600 text-white font-bold">Inspect Screen 04</span>
+                </div>
+              </div>
+              <div class="text-center font-mono">
+                <div class="text-xs font-bold text-blue-500">04</div>
+                <div class="text-[10px] font-semibold uppercase tracking-wider" style="color: var(--hf-ink);">DECISION</div>
+                <div class="text-[9px]" style="color: var(--hf-ink-muted);">Matrix Arbitration</div>
+              </div>
+            </div>
+            <!-- Arrow -->
+            <div class="text-lg font-bold pb-6" style="color: var(--hf-ink-muted);">→</div>
+          </div>
+
+          <!-- 05 PACKET THUMBNAIL -->
+          <div class="flex items-center gap-3">
+            <div class="flex flex-col items-center gap-2.5 cursor-pointer group" onclick="openHfExpanded(4)">
+              <div class="w-[230px] h-[162px] rounded-lg border overflow-hidden relative transition-all group-hover:border-blue-500 shadow-md" style="background: var(--hf-surface); border-color: var(--hf-border);">
+                <!-- Scaled Miniature of Screen 05 -->
+                <div class="w-[920px] h-[648px] origin-top-left pointer-events-none select-none p-6 flex flex-col justify-between" style="transform: scale(0.25); background: var(--hf-bg); color: var(--hf-ink);">
+                  <div class="flex justify-between items-center pb-3 border-b" style="border-color: var(--hf-border);">
+                    <div class="flex items-center gap-2 font-mono font-bold text-sm"><span>◧</span> DECISION PACKET · #DP-0417</div>
+                    <span class="text-xs px-2 py-0.5 rounded font-bold" style="background: #22c55e; color: #000;">Ready for Review</span>
+                  </div>
+                  <div class="grid grid-cols-4 gap-2 my-2 text-center">
+                    <div class="p-2 rounded border" style="background: var(--hf-surface-raised); border-color: var(--hf-border);">
+                      <div class="text-[10px] text-slate-400 font-mono">COMPOSITE</div><div class="text-base font-bold">85 / 100</div>
+                    </div>
+                    <div class="p-2 rounded border" style="background: var(--hf-surface-raised); border-color: var(--hf-border);">
+                      <div class="text-[10px] text-slate-400 font-mono">EVIDENCE</div><div class="text-base font-bold">30 Total</div>
+                    </div>
+                    <div class="p-2 rounded border" style="background: var(--hf-surface-raised); border-color: var(--hf-border);">
+                      <div class="text-[10px] text-slate-400 font-mono">EDITS</div><div class="text-base font-bold">2 Scenes</div>
+                    </div>
+                    <div class="p-2 rounded border" style="background: var(--hf-surface-raised); border-color: var(--hf-border);">
+                      <div class="text-[10px] text-slate-400 font-mono">CONFIDENCE</div><div class="text-base font-bold text-emerald-400">High</div>
+                    </div>
+                  </div>
+                  <div class="p-2 rounded text-[11px] font-mono" style="background: var(--hf-surface-raised); border: 1px solid var(--hf-border); color: var(--hf-ink-muted);">
+                    AUDIT LEDGER #AL-20260905-0042 · SHA-256 Verified · Nonce: a3f9b2c1
+                  </div>
+                </div>
+                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black/40 transition-opacity">
+                  <span class="text-[10px] font-mono px-2 py-1 rounded bg-blue-600 text-white font-bold">Inspect Screen 05</span>
+                </div>
+              </div>
+              <div class="text-center font-mono">
+                <div class="text-xs font-bold text-blue-500">05</div>
+                <div class="text-[10px] font-semibold uppercase tracking-wider" style="color: var(--hf-ink);">PACKET</div>
+                <div class="text-[9px]" style="color: var(--hf-ink-muted);">Clearance Dossier</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Footnote Strip -->
+      <div class="mt-4 pt-3 border-t flex flex-col sm:flex-row justify-between items-center text-[10px] font-mono" style="border-color: var(--hf-border); color: var(--hf-ink-muted);">
+        <span>VANTA Creative Decision Intelligence · Inter + JetBrains Mono · #0075de Brand Primary</span>
+        <span>Toggle between Dark &amp; Light mode above or click any thumbnail to inspect live full-screen</span>
+      </div>
+
+    </div>
+
+    <!-- Master Architecture Legend Card (Ultra-Clean & Compact) -->
+    <div class="mt-3.5 bg-white border border-slate-300 rounded-lg p-3.5 shadow-sm">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 divide-y md:divide-y-0 md:divide-x divide-slate-200">
+        
+        <!-- Left: Five Proof Levels (Compact List) -->
+        <div class="space-y-1.5 pr-0 md:pr-4">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-900">PROOF LEVELS</span>
+            <span class="font-mono text-[9px] text-slate-400">Class [C1]–[C5]</span>
+          </div>
+          <div class="grid grid-cols-1 gap-1.5 text-[10px]">
+            <div class="flex items-center gap-2">
+              <span class="chip chip-c1 shrink-0 w-24 justify-center">[C1] Direct Fact</span>
+              <span class="text-slate-600">Video pixels, timestamps &amp; on-screen text</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="chip chip-c2 shrink-0 w-24 justify-center">[C2] Brand Rule</span>
+              <span class="text-slate-600">Company brand book, safe-zones &amp; legal claims</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="chip chip-c3 shrink-0 w-24 justify-center">[C3] Past Data</span>
+              <span class="text-slate-600">Historical performance benchmarks</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="chip chip-c4 shrink-0 w-24 justify-center">[C4] AI Estimate</span>
+              <span class="text-slate-600">Projected engagement &amp; pacing models</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="chip chip-c5 shrink-0 w-24 justify-center">[C5] Missing</span>
+              <span class="text-slate-600 font-medium text-amber-900">No source found — pauses approval</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Core Rules (Bite-Sized) -->
+        <div class="space-y-1.5 pt-3 md:pt-0 pl-0 md:pl-4">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-900">CORE RULES</span>
+            <span class="font-mono text-[9px] text-slate-400">Decision Safety</span>
+          </div>
+          <div class="space-y-2 text-[10px] text-slate-600">
+            <div class="flex items-start gap-2">
+              <span class="font-mono font-bold text-slate-900 shrink-0">1.</span>
+              <span><b>Source-Backed Scores:</b> Every recommendation must cite an exact timestamp or rule.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="font-mono font-bold text-slate-900 shrink-0">2.</span>
+              <span><b>Pause on Uncertainty:</b> Missing proof locks budget release until manually checked.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="font-mono font-bold text-slate-900 shrink-0">3.</span>
+              <span><b>Fast Sign-Off:</b> Replaces Slack debates with a clear, 1-page decision report.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer Micro-strip -->
+      <div class="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[9px] font-mono text-slate-400">
+        <span>Vanta UX Case Study</span>
+        <span>Progression: 01 Low-Fi Wireframes → 02 High-Fi Product Journey → 03 Production-Ready Cockpit</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- JAVASCRIPT CONTROLLER -->
+  <!-- ========================================================================= -->
+  <script>
+    // ── High-Fidelity Theme Switcher ──
+    function setHfTheme(theme) {
+      const container = document.getElementById("hfContainer");
+      const btnDark = document.getElementById("btnThemeDark");
+      const btnLight = document.getElementById("btnThemeLight");
+
+      if (theme === "dark") {
+        container.classList.remove("hf-light");
+        container.classList.add("hf-dark");
+        btnDark.classList.add("bg-slate-900", "text-white", "shadow-sm");
+        btnDark.classList.remove("text-slate-600");
+        btnLight.classList.remove("bg-white", "text-slate-900", "shadow-sm");
+        btnLight.classList.add("text-slate-600");
+      } else {
+        container.classList.remove("hf-dark");
+        container.classList.add("hf-light");
+        btnLight.classList.add("bg-white", "text-slate-900", "shadow-sm");
+        btnLight.classList.remove("text-slate-600");
+        btnDark.classList.remove("bg-slate-900", "text-white", "shadow-sm");
+        btnDark.classList.add("text-slate-600");
+      }
+      showToast("Theme Updated", `High-Fidelity mockups switched to ${theme.toUpperCase()} mode.`, "🎨");
+    }
+
+    // ── Screen Content Templates for High-Fidelity Expanded View ──
+    const HF_SCREENS_DATA = [
+      {
+        stage: "STAGE 01",
+        title: "INTAKE — Submit Creative Assets & Brand Codex",
+        render: () => `
+          <div class="w-full h-full flex flex-col font-sans" style="background: var(--hf-bg); color: var(--hf-ink);">
+            <div class="h-10 px-4 border-b flex items-center justify-between text-xs font-mono" style="background: var(--hf-surface); border-color: var(--hf-border);">
+              <div class="flex items-center gap-3">
+                <span class="font-bold text-blue-500">VANTA</span>
+                <span style="color: var(--hf-ink-muted);">/</span>
+                <span>app.vanta.io/workspace/intake</span>
+              </div>
+              <span class="px-2 py-0.5 rounded text-[10px]" style="background: var(--hf-surface-raised); border: 1px solid var(--hf-border);">Ready</span>
+            </div>
+            <div class="flex-1 flex overflow-hidden">
+              <div class="flex-1 p-6 overflow-y-auto max-w-2xl">
+                <div class="text-[10px] font-mono uppercase tracking-wider mb-1" style="color: var(--hf-ink-muted);">CREATIVE INTAKE</div>
+                <h1 class="text-xl font-bold mb-1">Submit Creative Assets</h1>
+                <p class="text-xs mb-5" style="color: var(--hf-ink-secondary);">Upload assets and configure analysis parameters. Validates against active Brand Codex.</p>
+                <div class="p-5 rounded-lg border space-y-4" style="background: var(--hf-surface); border-color: var(--hf-border);">
+                  <div>
+                    <label class="text-xs block mb-1.5" style="color: var(--hf-ink-secondary);">Campaign Name</label>
+                    <div class="p-2.5 rounded border text-xs" style="background: var(--hf-surface-raised); border-color: var(--hf-border);">Q4 Brand Campaign — Hero Video</div>
+                  </div>
+                  <div class="grid grid-cols-2 gap-3">
+                    <div>
+                      <label class="text-xs block mb-1.5" style="color: var(--hf-ink-secondary);">Brand Codex Version</label>
+                      <div class="p-2.5 rounded border text-xs flex justify-between" style="background: var(--hf-surface-raised); border-color: var(--hf-border);">
+                        <span>Brand Codex v2.4</span><span style="color: var(--hf-ink-muted);">▾</span>
+                      </div>
+                    </div>
+                    <div>
+                      <label class="text-xs block mb-1.5" style="color: var(--hf-ink-secondary);">Creative Format</label>
+                      <div class="p-2.5 rounded border text-xs flex justify-between" style="background: var(--hf-surface-raised); border-color: var(--hf-border);">
+                        <span>Video (MP4)</span><span style="color: var(--hf-ink-muted);">▾</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="text-xs block mb-1.5" style="color: var(--hf-ink-secondary);">Creative Assets Dropzone</label>
+                    <div class="border-2 border-dashed rounded-lg p-6 text-center" style="background: var(--hf-surface-raised); border-color: var(--hf-border);">
+                      <div class="text-xl mb-1">⬆</div>
+                      <div class="text-xs" style="color: var(--hf-ink-secondary);">Drop video files here or <span class="text-blue-500 font-semibold cursor-pointer">browse</span></div>
+                      <div class="text-[10px] font-mono mt-1" style="color: var(--hf-ink-muted);">MP4 · MOV · PNG · JPG — max 2 GB</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-4 p-3 rounded border flex justify-between items-center" style="background: var(--hf-surface); border-color: var(--hf-border);">
+                  <div>
+                    <div class="text-xs font-bold">Brand Codex v2.4</div>
+                    <div class="text-[10px]" style="color: var(--hf-ink-secondary);">8 guidelines loaded · 3 scene constraints active · Last synced 2h ago</div>
+                  </div>
+                  <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded" style="background: var(--hf-obs-bg); color: var(--hf-obs-text); border: 1px solid var(--hf-obs-border);">Ready</span>
+                </div>
+                <div class="flex gap-2 mt-5">
+                  <button onclick="openHfExpanded(1)" class="px-4 py-2 rounded text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700">Submit for Analysis →</button>
+                  <button class="px-4 py-2 rounded text-xs border" style="border-color: var(--hf-border); color: var(--hf-ink);">Save Draft</button>
+                </div>
+              </div>
+              <div class="w-64 border-l p-4 overflow-y-auto text-xs font-mono" style="background: var(--hf-surface); border-color: var(--hf-border);">
+                <div class="font-bold text-[10px] uppercase tracking-wider mb-3" style="color: var(--hf-ink-muted);">Pipeline Status</div>
+                <div class="space-y-2 text-[11px]">
+                  <div class="flex justify-between py-1 border-b" style="border-color: var(--hf-border-subtle);"><span>Creative Twin</span><span style="color: var(--hf-ink-muted);">Pending</span></div>
+                  <div class="flex justify-between py-1 border-b" style="border-color: var(--hf-border-subtle);"><span>Brand Brain</span><span style="color: var(--hf-ink-muted);">Waiting</span></div>
+                  <div class="flex justify-between py-1 border-b" style="border-color: var(--hf-border-subtle);"><span>Evidence Layer</span><span style="color: var(--hf-ink-muted);">Waiting</span></div>
+                  <div class="flex justify-between py-1 border-b" style="border-color: var(--hf-border-subtle);"><span>Decision Matrix</span><span style="color: var(--hf-ink-muted);">Waiting</span></div>
+                </div>
+                <div class="font-bold text-[10px] uppercase tracking-wider mt-5 mb-2" style="color: var(--hf-ink-muted);">Codex Constraints</div>
+                <div class="space-y-1.5 text-[10.5px]" style="color: var(--hf-ink-secondary);">
+                  <div>— Logo safe-zone 10%</div>
+                  <div>— No hand gestures</div>
+                  <div>— CTA bottom-right only</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        stage: "STAGE 02",
+        title: "DIAGNOSTICS — Timeline Doctor & Scene Diagnostics",
+        render: () => `
+          <div class="w-full h-full flex flex-col font-sans overflow-y-auto p-6" style="background: var(--hf-bg); color: var(--hf-ink);">
+            <div class="flex justify-between items-center mb-4">
+              <div>
+                <div class="text-[10px] font-mono uppercase tracking-wider" style="color: var(--hf-ink-muted);">TIMELINE DOCTOR · 4 SCENES</div>
+                <h1 class="text-xl font-bold">Scene-Level Diagnostics</h1>
+                <p class="text-xs" style="color: var(--hf-ink-secondary);">Q4 Brand Campaign — Hero Video · Analysis Complete</p>
+              </div>
+              <div class="flex gap-4 text-center font-mono">
+                <div><div class="text-lg font-bold text-red-500">2</div><div class="text-[9px]" style="color: var(--hf-ink-muted);">Edits Required</div></div>
+                <div><div class="text-lg font-bold text-emerald-500">2</div><div class="text-[9px]" style="color: var(--hf-ink-muted);">Approved</div></div>
+              </div>
+            </div>
+            <div class="space-y-3 max-w-4xl">
+              <!-- Scene 1 -->
+              <div class="p-3.5 rounded-lg border" style="background: var(--hf-surface); border-color: #ef4444; border-left: 4px solid #ef4444;">
+                <div class="flex justify-between items-start mb-2">
+                  <div class="flex gap-3 items-center">
+                    <div class="w-12 h-8 rounded flex items-center justify-center font-mono text-xs font-bold" style="background: var(--hf-surface-raised); border: 1px solid var(--hf-border);">S01</div>
+                    <div>
+                      <div class="text-xs font-bold">Scene 01 — Brand logo intro</div>
+                      <div class="text-[10px] font-mono" style="color: var(--hf-ink-muted);">0:00–0:06</div>
+                    </div>
+                  </div>
+                  <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded text-red-400 bg-red-950/40 border border-red-800">Edit Required</span>
+                </div>
+                <div class="p-2 rounded text-[11px] mb-2 font-mono" style="background: var(--hf-surface-raised); color: var(--hf-ink-secondary);">
+                  <span style="color: var(--hf-ink-muted);">EDIT BRIEF:</span> Logo positioned outside the 10% safe-zone margin. Realign to brand spec — center-left, 8% inset.
+                </div>
+                <div class="flex items-center gap-2 text-[10px]">
+                  <span style="color: var(--hf-ink-muted);">Completeness:</span>
+                  <div class="flex-1 h-1.5 rounded-full overflow-hidden" style="background: var(--hf-surface-border);"><div class="h-full bg-blue-500 w-[92%]"></div></div>
+                  <span class="font-mono font-bold">92%</span>
+                </div>
+              </div>
+
+              <!-- Scene 2 -->
+              <div class="p-3.5 rounded-lg border" style="background: var(--hf-surface); border-color: var(--hf-border); border-left: 4px solid #22c55e;">
+                <div class="flex justify-between items-start mb-2">
+                  <div class="flex gap-3 items-center">
+                    <div class="w-12 h-8 rounded flex items-center justify-center font-mono text-xs font-bold" style="background: var(--hf-surface-raised); border: 1px solid var(--hf-border);">S02</div>
+                    <div>
+                      <div class="text-xs font-bold">Scene 02 — Product reveal sequence</div>
+                      <div class="text-[10px] font-mono" style="color: var(--hf-ink-muted);">0:06–0:14</div>
+                    </div>
+                  </div>
+                  <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded text-emerald-400 bg-emerald-950/40 border border-emerald-800">Approved ✓</span>
+                </div>
+                <div class="p-2 rounded text-[11px] mb-2 font-mono" style="background: var(--hf-surface-raised); color: var(--hf-ink-secondary);">
+                  <span style="color: var(--hf-ink-muted);">EDIT BRIEF:</span> Tone and color grading consistent with Brand Codex v2.4 palette. No changes required.
+                </div>
+                <div class="flex items-center gap-2 text-[10px]">
+                  <span style="color: var(--hf-ink-muted);">Completeness:</span>
+                  <div class="flex-1 h-1.5 rounded-full overflow-hidden" style="background: var(--hf-surface-border);"><div class="h-full bg-emerald-500 w-[100%]"></div></div>
+                  <span class="font-mono font-bold">100%</span>
+                </div>
+              </div>
+
+              <!-- Scene 3 -->
+              <div class="p-3.5 rounded-lg border" style="background: var(--hf-surface); border-color: #ef4444; border-left: 4px solid #ef4444;">
+                <div class="flex justify-between items-start mb-2">
+                  <div class="flex gap-3 items-center">
+                    <div class="w-12 h-8 rounded flex items-center justify-center font-mono text-xs font-bold" style="background: var(--hf-surface-raised); border: 1px solid var(--hf-border);">S03</div>
+                    <div>
+                      <div class="text-xs font-bold">Scene 03 — CTA overlay</div>
+                      <div class="text-[10px] font-mono" style="color: var(--hf-ink-muted);">0:14–0:22</div>
+                    </div>
+                  </div>
+                  <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded text-red-400 bg-red-950/40 border border-red-800">Edit Required</span>
+                </div>
+                <div class="p-2 rounded text-[11px] mb-2 font-mono" style="background: var(--hf-surface-raised); color: var(--hf-ink-secondary);">
+                  <span style="color: var(--hf-ink-muted);">EDIT BRIEF:</span> Call-to-action overlay breaches the bottom-right safe zone. Resize and reposition per constraint #3.
+                </div>
+                <div class="flex items-center gap-2 text-[10px]">
+                  <span style="color: var(--hf-ink-muted);">Completeness:</span>
+                  <div class="flex-1 h-1.5 rounded-full overflow-hidden" style="background: var(--hf-surface-border);"><div class="h-full bg-blue-500 w-[74%]"></div></div>
+                  <span class="font-mono font-bold">74%</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex gap-2 mt-5">
+              <button onclick="openHfExpanded(2)" class="px-4 py-2 rounded text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700">Review Evidence →</button>
+              <button class="px-4 py-2 rounded text-xs border" style="border-color: var(--hf-border); color: var(--hf-ink);">Export Edit Briefs</button>
+            </div>
+          </div>
+        `
+      },
+      {
+        stage: "STAGE 03",
+        title: "EVIDENCE — Registry & Five-Class Classification",
+        render: () => `
+          <div class="w-full h-full flex flex-col font-sans overflow-y-auto p-6" style="background: var(--hf-bg); color: var(--hf-ink);">
+            <div class="mb-4">
+              <div class="text-[10px] font-mono uppercase tracking-wider" style="color: var(--hf-ink-muted);">EVIDENCE LAYER</div>
+              <h1 class="text-xl font-bold">Evidence Registry</h1>
+              <p class="text-xs" style="color: var(--hf-ink-secondary);">30 data points · Fail-closed gates active · Confidence is earned, not generated.</p>
+            </div>
+
+            <!-- Class Summary Tiles -->
+            <div class="grid grid-cols-5 gap-3 mb-4">
+              <div class="p-3 rounded-lg text-center" style="background: var(--hf-obs-bg); border: 1px solid var(--hf-obs-border);">
+                <div class="text-2xl font-bold font-mono" style="color: var(--hf-obs-text);">12</div>
+                <div class="text-xs font-semibold" style="color: var(--hf-obs-text);">Observed</div>
+                <div class="text-[9px]" style="color: var(--hf-ink-muted);">Directly measured</div>
+              </div>
+              <div class="p-3 rounded-lg text-center" style="background: var(--hf-src-bg); border: 1px solid var(--hf-src-border);">
+                <div class="text-2xl font-bold font-mono" style="color: var(--hf-src-text);">8</div>
+                <div class="text-xs font-semibold" style="color: var(--hf-src-text);">Sourced</div>
+                <div class="text-[9px]" style="color: var(--hf-ink-muted);">Verifiable citation</div>
+              </div>
+              <div class="p-3 rounded-lg text-center" style="background: var(--hf-inf-bg); border: 1px solid var(--hf-inf-border);">
+                <div class="text-2xl font-bold font-mono" style="color: var(--hf-inf-text);">5</div>
+                <div class="text-xs font-semibold" style="color: var(--hf-inf-text);">Inference</div>
+                <div class="text-[9px]" style="color: var(--hf-ink-muted);">Deterministic calc</div>
+              </div>
+              <div class="p-3 rounded-lg text-center" style="background: var(--hf-sim-bg); border: 1px solid var(--hf-sim-border);">
+                <div class="text-2xl font-bold font-mono" style="color: var(--hf-sim-text);">3</div>
+                <div class="text-xs font-semibold" style="color: var(--hf-sim-text);">Simulation</div>
+                <div class="text-[9px]" style="color: var(--hf-ink-muted);">AI structured output</div>
+              </div>
+              <div class="p-3 rounded-lg text-center" style="background: var(--hf-unk-bg); border: 1px solid var(--hf-unk-border);">
+                <div class="text-2xl font-bold font-mono" style="color: var(--hf-unk-text);">2</div>
+                <div class="text-xs font-semibold" style="color: var(--hf-unk-text);">Unknown</div>
+                <div class="text-[9px]" style="color: var(--hf-ink-muted);">Absent / stale</div>
+              </div>
+            </div>
+
+            <!-- Fail-closed banner -->
+            <div class="p-3 rounded-md mb-4 flex items-center justify-between border" style="background: #2a1c08; border-color: #5c3a10; color: #fbbf24;">
+              <div class="flex items-center gap-2 text-xs">
+                <span>▲</span>
+                <span class="font-bold">2 Unknown data points — downstream scoring blocked</span>
+                <span style="color: var(--hf-ink-secondary);">· Resolve or exclude to unlock Decision Matrix</span>
+              </div>
+              <button class="px-2 py-0.5 rounded text-[10px] font-mono border" style="background: transparent; border-color: #5c3a10; color: #fbbf24;">Resolve</button>
+            </div>
+
+            <!-- Table -->
+            <div class="rounded-lg border overflow-hidden text-xs" style="background: var(--hf-surface); border-color: var(--hf-border);">
+              <div class="grid grid-cols-12 gap-2 p-2.5 font-mono text-[10px] font-bold uppercase" style="background: var(--hf-surface-raised); border-bottom: 1px solid var(--hf-border); color: var(--hf-ink-muted);">
+                <div class="col-span-4">Claim</div>
+                <div class="col-span-4">Source</div>
+                <div class="col-span-2">Class</div>
+                <div class="col-span-2 text-right">Status</div>
+              </div>
+              <div class="divide-y" style="border-color: var(--hf-border-subtle);">
+                <div class="grid grid-cols-12 gap-2 p-2.5 items-center">
+                  <div class="col-span-4 font-medium">Brand color accuracy score</div>
+                  <div class="col-span-4 font-mono text-[10px]" style="color: var(--hf-ink-secondary);">Authorized connector · Brand Brain v2.4</div>
+                  <div class="col-span-2"><span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold" style="background: var(--hf-obs-bg); color: var(--hf-obs-text);">Observed</span></div>
+                  <div class="col-span-2 text-right font-bold text-emerald-400">Valid</div>
+                </div>
+                <div class="grid grid-cols-12 gap-2 p-2.5 items-center">
+                  <div class="col-span-4 font-medium">CTA position compliance</div>
+                  <div class="col-span-4 font-mono text-[10px]" style="color: var(--hf-ink-secondary);">Brand Codex v2.4, §3.2</div>
+                  <div class="col-span-2"><span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold" style="background: var(--hf-src-bg); color: var(--hf-src-text);">Sourced</span></div>
+                  <div class="col-span-2 text-right font-bold text-emerald-400">Valid</div>
+                </div>
+                <div class="grid grid-cols-12 gap-2 p-2.5 items-center">
+                  <div class="col-span-4 font-medium">Engagement lift forecast</div>
+                  <div class="col-span-4 font-mono text-[10px]" style="color: var(--hf-ink-secondary);">Simulation Lab — bounded AI output</div>
+                  <div class="col-span-2"><span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold" style="background: var(--hf-sim-bg); color: var(--hf-sim-text);">Simulation</span></div>
+                  <div class="col-span-2 text-right font-bold text-amber-400">Flagged</div>
+                </div>
+                <div class="grid grid-cols-12 gap-2 p-2.5 items-center" style="background: #1f1414;">
+                  <div class="col-span-4 font-medium text-red-400">Competitor share data</div>
+                  <div class="col-span-4 font-mono text-[10px]" style="color: var(--hf-ink-muted);">—</div>
+                  <div class="col-span-2"><span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold" style="background: var(--hf-unk-bg); color: var(--hf-unk-text);">Unknown</span></div>
+                  <div class="col-span-2 text-right font-bold text-red-400">Blocked</div>
+                </div>
+              </div>
+            </div>
+            <div class="flex gap-2 mt-5">
+              <button onclick="openHfExpanded(3)" class="px-4 py-2 rounded text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700">Open Decision Matrix →</button>
+              <button class="px-4 py-2 rounded text-xs border" style="border-color: var(--hf-border); color: var(--hf-ink);">Export Evidence Report</button>
+            </div>
+          </div>
+        `
+      },
+      {
+        stage: "STAGE 04",
+        title: "DECISION — Decision Matrix & Arbitration",
+        render: () => `
+          <div class="w-full h-full flex flex-col font-sans overflow-y-auto p-6" style="background: var(--hf-bg); color: var(--hf-ink);">
+            <div class="mb-4">
+              <div class="text-[10px] font-mono uppercase tracking-wider" style="color: var(--hf-ink-muted);">DECISION MATRIX</div>
+              <h1 class="text-xl font-bold">Variant Comparison</h1>
+              <p class="text-xs" style="color: var(--hf-ink-secondary);">Transparent scoring — every signal is traceable to an evidence source.</p>
+            </div>
+
+            <!-- Variant Header Cards -->
+            <div class="grid grid-cols-12 gap-3 mb-4">
+              <div class="col-span-4"></div>
+              <div class="col-span-4 p-4 rounded-lg border cursor-pointer" style="background: var(--hf-primary-muted); border-color: var(--hf-primary);">
+                <div class="text-[10px] font-mono mb-1" style="color: var(--hf-ink-muted);">VARIANT A</div>
+                <div class="text-2xl font-bold font-mono" style="color: var(--hf-primary);">85 <span class="text-xs font-normal" style="color: var(--hf-ink-muted);">/ 100</span></div>
+                <div class="text-xs mt-1" style="color: var(--hf-ink-secondary);">Hero video — long-form</div>
+                <div class="mt-2"><span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold" style="background: var(--hf-obs-bg); color: var(--hf-obs-text);">★ Recommended</span></div>
+              </div>
+              <div class="col-span-4 p-4 rounded-lg border cursor-pointer" style="background: var(--hf-surface); border-color: var(--hf-border);">
+                <div class="text-[10px] font-mono mb-1" style="color: var(--hf-ink-muted);">VARIANT B</div>
+                <div class="text-2xl font-bold font-mono">78 <span class="text-xs font-normal" style="color: var(--hf-ink-muted);">/ 100</span></div>
+                <div class="text-xs mt-1" style="color: var(--hf-ink-secondary);">Hero video — 15s cut</div>
+              </div>
+            </div>
+
+            <!-- Criteria Table -->
+            <div class="rounded-lg border overflow-hidden text-xs" style="background: var(--hf-surface); border-color: var(--hf-border);">
+              <div class="grid grid-cols-12 gap-3 p-2.5 font-mono text-[10px] font-bold uppercase" style="background: var(--hf-surface-raised); border-bottom: 1px solid var(--hf-border); color: var(--hf-ink-muted);">
+                <div class="col-span-4">Criterion</div>
+                <div class="col-span-4">Variant A</div>
+                <div class="col-span-4">Variant B</div>
+              </div>
+              <div class="divide-y" style="border-color: var(--hf-border-subtle);">
+                <div class="grid grid-cols-12 gap-3 p-3 items-center">
+                  <div class="col-span-4 font-medium" style="color: var(--hf-ink-secondary);">Brand Fit</div>
+                  <div class="col-span-4 font-bold font-mono text-blue-500">94</div>
+                  <div class="col-span-4 font-mono" style="color: var(--hf-ink-muted);">77</div>
+                </div>
+                <div class="grid grid-cols-12 gap-3 p-3 items-center">
+                  <div class="col-span-4 font-medium" style="color: var(--hf-ink-secondary);">Evidence Quality</div>
+                  <div class="col-span-4 font-mono">88</div>
+                  <div class="col-span-4 font-bold font-mono text-blue-500">91</div>
+                </div>
+                <div class="grid grid-cols-12 gap-3 p-3 items-center">
+                  <div class="col-span-4 font-medium" style="color: var(--hf-ink-secondary);">Predicted Lift</div>
+                  <div class="col-span-4 font-bold font-mono text-blue-500">72</div>
+                  <div class="col-span-4 font-mono" style="color: var(--hf-ink-muted);">68</div>
+                </div>
+                <div class="grid grid-cols-12 gap-3 p-3 items-center">
+                  <div class="col-span-4 font-medium" style="color: var(--hf-ink-secondary);">Confidence</div>
+                  <div class="col-span-4 font-bold text-emerald-400">High</div>
+                  <div class="col-span-4" style="color: var(--hf-ink-secondary);">Medium</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recommendation banner -->
+            <div class="mt-4 p-3.5 rounded-lg border flex justify-between items-center" style="background: var(--hf-primary-muted); border-color: rgba(0, 117, 222, 0.4);">
+              <div>
+                <div class="text-xs font-bold">Recommendation — Proceed with Variant A</div>
+                <div class="text-[11px]" style="color: var(--hf-ink-secondary);">Higher brand fit (94 vs 77) · Evidence class: Observed + Sourced · Low timeline risk</div>
+              </div>
+              <button onclick="openHfExpanded(4)" class="px-3 py-1.5 rounded text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700">Build Packet →</button>
+            </div>
+          </div>
+        `
+      },
+      {
+        stage: "STAGE 05",
+        title: "PACKET — Final Decision Clearance Dossier",
+        render: () => `
+          <div class="w-full h-full flex flex-col font-sans overflow-y-auto p-6" style="background: var(--hf-bg); color: var(--hf-ink);">
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                <div class="text-[10px] font-mono uppercase tracking-wider" style="color: var(--hf-ink-muted);">DECISION PACKET · #DP-0417</div>
+                <h1 class="text-xl font-bold">Q4 Brand Campaign</h1>
+                <p class="text-xs" style="color: var(--hf-ink-secondary);">Compiled decision artifact · Generated 09/05/2026 · Variant A recommended</p>
+              </div>
+              <span class="px-2.5 py-1 rounded text-xs font-mono font-bold" style="background: var(--hf-obs-bg); color: var(--hf-obs-text); border: 1px solid var(--hf-obs-border);">Ready for Review</span>
+            </div>
+
+            <!-- 4-Stat Strip -->
+            <div class="grid grid-cols-4 gap-3 mb-4 p-3 rounded-lg border" style="background: var(--hf-surface); border-color: var(--hf-border);">
+              <div>
+                <div class="text-[9px] font-mono uppercase" style="color: var(--hf-ink-muted);">Composite Score</div>
+                <div class="text-base font-bold font-mono">85 / 100</div>
+              </div>
+              <div>
+                <div class="text-[9px] font-mono uppercase" style="color: var(--hf-ink-muted);">Evidence Points</div>
+                <div class="text-base font-bold font-mono">30 total</div>
+              </div>
+              <div>
+                <div class="text-[9px] font-mono uppercase" style="color: var(--hf-ink-muted);">Edits Required</div>
+                <div class="text-base font-bold font-mono">2 scenes</div>
+              </div>
+              <div>
+                <div class="text-[9px] font-mono uppercase" style="color: var(--hf-ink-muted);">Confidence</div>
+                <div class="text-base font-bold text-emerald-400 font-mono">High</div>
+              </div>
+            </div>
+
+            <!-- Sections -->
+            <div class="space-y-3 mb-4">
+              <div class="rounded-lg border overflow-hidden" style="background: var(--hf-surface); border-color: var(--hf-border);">
+                <div class="px-3.5 py-2 font-bold text-xs border-b flex items-center justify-between" style="background: var(--hf-surface-raised); border-color: var(--hf-border);">
+                  <span>Executive Summary</span>
+                  <span class="px-2 py-0.5 rounded text-[9px] font-mono font-bold" style="background: var(--hf-obs-bg); color: var(--hf-obs-text);">Observed</span>
+                </div>
+                <div class="p-3 text-xs leading-relaxed" style="color: var(--hf-ink-secondary);">
+                  Variant A is recommended with high confidence. Brand fit scored 94/100 against Brand Codex v2.4. Two scene edits are required before launch. Evidence is primarily Observed and Sourced — no hallucinated signals.
+                </div>
+              </div>
+
+              <div class="rounded-lg border overflow-hidden" style="background: var(--hf-surface); border-color: var(--hf-border);">
+                <div class="px-3.5 py-2 font-bold text-xs border-b flex items-center justify-between" style="background: var(--hf-surface-raised); border-color: var(--hf-border);">
+                  <span>Timeline Corrections</span>
+                  <span class="px-2 py-0.5 rounded text-[9px] font-mono font-bold" style="background: var(--hf-inf-bg); color: var(--hf-inf-text);">Inference</span>
+                </div>
+                <div class="p-3 text-xs leading-relaxed" style="color: var(--hf-ink-secondary);">
+                  Scene 01: Logo realignment — reposition to center-left, 8% inset, per Brand Codex §1.1. Scene 03: CTA safe-zone violation — resize overlay and anchor to bottom-right per constraint #3.
+                </div>
+              </div>
+            </div>
+
+            <!-- Audit Ledger Bar -->
+            <div class="p-2 rounded font-mono text-[9.5px] border mb-4" style="background: var(--hf-surface-raised); border-color: var(--hf-border); color: var(--hf-ink-muted);">
+              AUDIT LEDGER · Entry #AL-20260905-0042 · Idempotency verified · Nonce: a3f9b2c1 · Outcome Calibration Loop: armed
+            </div>
+
+            <div class="flex gap-2">
+              <button onclick="runLiveClearanceAudit()" class="px-4 py-2 rounded text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700">Export Packet PDF ↓</button>
+              <button class="px-4 py-2 rounded text-xs border" style="border-color: var(--hf-border); color: var(--hf-ink);">Share Link</button>
+              <button class="px-4 py-2 rounded text-xs border" style="border-color: var(--hf-border); color: var(--hf-ink);">Calibration Loop</button>
+            </div>
+          </div>
+        `
+      }
+    ];
+
+    function openHfExpanded(idx) {
+      const wrapper = document.getElementById("hfExpandedWrapper");
+      const badge = document.getElementById("hfExpandedStageBadge");
+      const title = document.getElementById("hfExpandedTitle");
+      const frame = document.getElementById("hfExpandedFrame");
+
+      const data = HF_SCREENS_DATA[idx];
+      badge.innerText = data.stage;
+      title.innerText = data.title;
+      frame.innerHTML = data.render();
+
+      wrapper.classList.remove("hidden");
+      wrapper.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      showToast("Expanded Screen", `Opened ${data.stage} in interactive inspection mode.`, "🔍");
+    }
+
+    function closeHfExpanded() {
+      document.getElementById("hfExpandedWrapper").classList.add("hidden");
+    }
+
+    function showToast(title, message, icon = "ℹ️") {
+      const toast = document.getElementById("toastNotification");
+      document.getElementById("toastTitle").innerText = title;
+      document.getElementById("toastMessage").innerText = message;
+      document.getElementById("toastIcon").innerText = icon;
+
+      toast.classList.remove("translate-y-[-140%]", "opacity-0");
+      toast.classList.add("translate-y-0", "opacity-100");
+
+      setTimeout(hideToast, 3500);
+    }
+
+    function hideToast() {
+      const toast = document.getElementById("toastNotification");
+      toast.classList.add("translate-y-[-140%]", "opacity-0");
+      toast.classList.remove("translate-y-0", "opacity-100");
+    }
+
+    function simulateIngest() {
+      showToast("Uploading Creative Twin", "Processing 3 files via FFmpeg (2fps) + Whisper ASR...", "⏳");
+      setTimeout(() => {
+        showToast("Extraction Complete", "Creative Twin parsed into 6 scenes with 148 wpm baseline.", "✅");
+      }, 1200);
+    }
+
+    function scrubTimeline(event) {
+      const rect = event.currentTarget.getBoundingClientRect();
+      const pct = Math.max(0, Math.min(100, ((event.clientX - rect.left) / rect.width) * 100));
+      document.getElementById("timelinePlayhead").style.left = `${pct}%`;
+      document.getElementById("curvePlayheadPin").style.left = `${pct}%`;
+      const seconds = ((pct / 100) * 15).toFixed(1);
+      document.getElementById("currentTimestampLabel").innerText = `00:${seconds < 10 ? '0' : ''}${seconds}`;
+      document.getElementById("playheadCounter").innerText = `00:${seconds < 10 ? '0' : ''}${seconds} / 15s`;
+    }
+
+    function selectFlag(flagId) {
+      if (flagId === "flag1") {
+        document.getElementById("defectTitle").innerText = "Text Covered by App Icons";
+        document.getElementById("defectDescription").innerText = "At 00:01.8: Headline sits where TikTok/IG UI overlays cover words.";
+        document.getElementById("currentTimestampLabel").innerText = "00:01.8";
+        document.getElementById("playheadCounter").innerText = "00:01.8 / 15s";
+        document.getElementById("timelinePlayhead").style.left = "24%";
+        document.getElementById("curvePlayheadPin").style.left = "24%";
+      } else {
+        document.getElementById("defectTitle").innerText = "Narrative Pacing Spike";
+        document.getElementById("defectDescription").innerText = "At 00:08.7: Voiceover accelerates to 201 wpm against 142 wpm baseline.";
+        document.getElementById("currentTimestampLabel").innerText = "00:08.7";
+        document.getElementById("playheadCounter").innerText = "00:08.7 / 15s";
+        document.getElementById("timelinePlayhead").style.left = "58%";
+        document.getElementById("curvePlayheadPin").style.left = "58%";
+      }
+      showToast("Flag Selected", `Jumped to timestamp. Click 'See Proof' for frame evidence.`, "📍");
+    }
+
+    function logHumanOverride() {
+      const input = document.getElementById("overrideJustificationInput");
+      const val = input.value.trim();
+      if (!val) {
+        showToast("Approved with Override", "Logged human sign-off without note to audit trail.", "✍️");
+      } else {
+        showToast("Approved with Override", `Logged note: "${val.slice(0, 30)}..."`, "✍️");
+      }
+      document.getElementById("auditStatusLabel").innerText = "Status: Human Override Logged";
+      input.value = "";
+    }
+
+    function confirmDefect() {
+      showToast("Task Created", "Created edit brief: Adjust headline bounding box above Y:1500.", "✅");
+      document.getElementById("auditStatusLabel").innerText = "Status: Fix Task Assigned";
+    }
+
+    function updateWeights() {
+      const wHook = parseInt(document.getElementById("sliderHook").value);
+      const wBrand = parseInt(document.getElementById("sliderBrand").value);
+      const wPacing = parseInt(document.getElementById("sliderPacing").value);
+      const wConv = parseInt(document.getElementById("sliderConversion").value);
+
+      document.getElementById("labelWeightHook").innerText = `${wHook}%`;
+      document.getElementById("labelWeightBrand").innerText = `${wBrand}%`;
+      document.getElementById("labelWeightPacing").innerText = `${wPacing}%`;
+      document.getElementById("labelWeightConversion").innerText = `${wConv}%`;
+
+      const total = wHook + wBrand + wPacing + wConv;
+      document.getElementById("weightSumLabel").innerText = `Total: ${total}%`;
+
+      const scoreA = Math.round((92 * wHook + 45 * wBrand + 62 * wPacing + 58 * wConv) / total);
+      const scoreB = Math.round((86 * wHook + 91 * wBrand + 84 * wPacing + 90 * wConv) / total);
+      const scoreC = Math.round((55 * wHook + 94 * wBrand + 78 * wPacing + 60 * wConv) / total);
+
+      document.getElementById("matrixScoreA").innerText = scoreA;
+      document.getElementById("matrixScoreB").innerText = scoreB;
+      document.getElementById("matrixScoreC").innerText = scoreC;
+
+      if (scoreB >= scoreA && scoreB >= scoreC) {
+        document.getElementById("topWinnerBanner").innerText = `Variant B Winner (${scoreB}/100)`;
+      } else if (scoreA >= scoreB && scoreA >= scoreC) {
+        document.getElementById("topWinnerBanner").innerText = `Variant A Winner (${scoreA}/100)`;
+      } else {
+        document.getElementById("topWinnerBanner").innerText = `Variant C Winner (${scoreC}/100)`;
+      }
+    }
+
+    function changeStrategyPreset(val) {
+      if (val === "growth") {
+        document.getElementById("sliderHook").value = 45;
+        document.getElementById("sliderBrand").value = 15;
+        document.getElementById("sliderPacing").value = 20;
+        document.getElementById("sliderConversion").value = 20;
+      } else if (val === "brand") {
+        document.getElementById("sliderHook").value = 20;
+        document.getElementById("sliderBrand").value = 40;
+        document.getElementById("sliderPacing").value = 20;
+        document.getElementById("sliderConversion").value = 20;
+      } else {
+        document.getElementById("sliderHook").value = 25;
+        document.getElementById("sliderBrand").value = 25;
+        document.getElementById("sliderPacing").value = 25;
+        document.getElementById("sliderConversion").value = 25;
+      }
+      updateWeights();
+      showToast("Preset Applied", `Recalculated weights for ${val.toUpperCase()} campaign objective.`, "⚖️");
+    }
+
+    let playbackTimer = null;
+    function togglePlaybackDemo() {
+      if (playbackTimer) {
+        clearInterval(playbackTimer);
+        playbackTimer = null;
+        document.getElementById("btnPlayDemo").innerText = "▶";
+        return;
+      }
+      document.getElementById("btnPlayDemo").innerText = "❚❚";
+      let pos = parseFloat(document.getElementById("timelinePlayhead").style.left) || 24;
+      playbackTimer = setInterval(() => {
+        pos += 1.5;
+        if (pos > 100) pos = 0;
+        document.getElementById("timelinePlayhead").style.left = `${pos}%`;
+        document.getElementById("curvePlayheadPin").style.left = `${pos}%`;
+        const sec = ((pos / 100) * 15).toFixed(1);
+        document.getElementById("currentTimestampLabel").innerText = `00:${sec < 10 ? '0' : ''}${sec}`;
+        document.getElementById("playheadCounter").innerText = `00:${sec < 10 ? '0' : ''}${sec} / 15s`;
+      }, 100);
+    }
+
+    function runLiveClearanceAudit() {
+      showToast("PDF Export Initiated", "Compiled Decision Packet #DP-0417 with SHA-256 asset hash ($25,000 budget unlocked).", "📄");
+    }
+
+    function viewRawJsonAudit() {
+      showToast("Audit JSON Copied", "Traceable evidence payload copied to clipboard.", "📋");
+    }
+  </script>
+</body>
+</html>
