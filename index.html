@@ -66,19 +66,22 @@
 
     /* Section 02 Frame & Component Styles */
     svg.icon { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; vertical-align: -2px; }
-    .hfp-frame { width: 452px; min-width: 452px; background: var(--hfp-surface); border: 1px solid var(--hfp-border-strong); border-radius: 12px; box-shadow: var(--shadow-md); overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+    .hfp-frame { width: 452px; min-width: 452px; background: var(--hfp-surface); border: 1px solid var(--hfp-border-strong); border-radius: 12px; box-shadow: var(--shadow-md); overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; transition: box-shadow 0.2s ease, transform 0.2s ease; }
+    .hfp-frame:hover { box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.12); }
     .hfp-chrome { display: flex; align-items: center; gap: 6px; padding: 9px 12px; background: var(--hfp-surface-alt); border-bottom: 1px solid var(--hfp-border); }
     .hfp-url { flex: 1; height: 18px; background: var(--hfp-surface); border: 1px solid var(--hfp-border); border-radius: 5px; margin-left: 8px; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: var(--hfp-ink-3); display: flex; align-items: center; padding: 0 8px; }
     .hfp-nav { display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-bottom: 1px solid var(--hfp-border); }
     .hfp-ws-pill { font-size: 10px; color: var(--hfp-ink-2); background: var(--hfp-surface-alt); border: 1px solid var(--hfp-border); border-radius: 20px; padding: 3px 9px; display: flex; align-items: center; gap: 4px; }
     .hfp-tabs { display: flex; gap: 2px; padding: 0 14px; border-bottom: 1px solid var(--hfp-border); }
-    .hfp-tab { font-size: 11px; color: var(--hfp-ink-3); padding: 9px 4px; margin-right: 14px; border-bottom: 2px solid transparent; }
+    .hfp-tab { font-size: 11px; color: var(--hfp-ink-3); padding: 9px 4px; margin-right: 14px; border-bottom: 2px solid transparent; cursor: pointer; transition: all 0.15s ease; }
+    .hfp-tab:hover { color: var(--hfp-ink-2); }
     .hfp-tab.active { color: var(--hfp-ink); font-weight: 600; border-bottom: 2px solid var(--hfp-accent); }
     .hfp-body { padding: 16px 16px 14px; flex: 1; display: flex; flex-direction: column; }
     .hfp-card { border: 1px solid var(--hfp-border); border-radius: var(--radius); padding: 11px 12px; margin-top: 10px; background: var(--hfp-surface); }
     .hfp-card-alt { background: var(--hfp-surface-alt); }
     .hfp-card-label { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: .04em; color: var(--hfp-ink-3); text-transform: uppercase; margin-bottom: 8px; }
-    .hfp-dropzone { border: 1.5px dashed var(--hfp-border-strong); border-radius: var(--radius-sm); background: var(--hfp-surface-alt); height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: var(--hfp-ink-2); }
+    .hfp-dropzone { border: 1.5px dashed var(--hfp-border-strong); border-radius: var(--radius-sm); background: var(--hfp-surface-alt); height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: var(--hfp-ink-2); cursor: pointer; transition: border-color 0.2s; }
+    .hfp-dropzone:hover { border-color: var(--hfp-accent); }
     .hfp-field { border: 1px solid var(--hfp-border-strong); border-radius: 6px; height: 26px; display: flex; align-items: center; justify-content: space-between; padding: 0 9px; font-size: 10.5px; color: var(--hfp-ink-2); background: var(--hfp-surface); }
     .hfp-stat-pill { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 600; padding: 3px 8px; border-radius: 20px; display: inline-flex; align-items: center; gap: 4px; }
     .hfp-stat-pill.ok { background: var(--hfp-ok-tint); color: var(--hfp-ok); }
@@ -92,7 +95,7 @@
     .hfp-scene-idx { font-family: 'JetBrains Mono', monospace; font-size: 8.5px; color: var(--hfp-ink-3); text-align: center; margin-top: 3px; }
     .hfp-brief { border: 1px solid var(--hfp-border); border-radius: var(--radius-sm); padding: 8px 10px; margin-top: 7px; }
     .hfp-ev-table { margin-top: 9px; border: 1px solid var(--hfp-border); border-radius: var(--radius-sm); overflow: hidden; }
-    .hfp-ev-row { display: grid; grid-template-columns: 1.7fr .85fr 1.1fr .55fr; gap: 8px; padding: 7px 9px; align-items: center; border-bottom: 1px solid var(--hfp-border); font-size: 10px; color: var(--hfp-ink-2); }
+    .hfp-ev-row { display: grid; grid-template-columns: 1.7fr .85fr 1.1fr .55fr; gap: 8px; padding: 7px 9px; align-items: center; border-bottom: 1px solid var(--hfp-border); font-size: 10px; color: var(--hfp-ink-2); transition: background-color 0.2s; }
     .hfp-ev-row:last-child { border-bottom: none; }
     .hfp-ev-row.head { background: var(--hfp-surface-alt); font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600; color: var(--hfp-ink-3); text-transform: uppercase; }
     .hfp-ev-row.blocked { background: var(--hfp-sim-tint); }
@@ -163,32 +166,10 @@
       flex-direction: column;
       justify-content: space-between;
     }
-    .browser-chrome {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 7px 12px;
-      background: #F1F5F9;
-      border-bottom: 1px solid var(--border);
-    }
     .dot { width: 8px; height: 8px; border-radius: 50%; }
     .dot.r { background: #EF4444; }
     .dot.y { background: #F59E0B; }
     .dot.g { background: #10B981; }
-    .url-bar {
-      flex: 1;
-      height: 20px;
-      background: #ffffff;
-      border: 1px solid var(--border-strong);
-      border-radius: 4px;
-      margin-left: 8px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      color: var(--ink-3);
-      display: flex;
-      align-items: center;
-      padding: 0 8px;
-    }
 
     /* Evidence Chips & Badges */
     .chip {
@@ -287,14 +268,27 @@
 </head>
 <body class="wf-canvas min-h-screen p-4 md:p-8 flex flex-col items-center">
 
-  <!-- Toast Notification System -->
-  <div id="toastNotification" class="fixed top-5 right-5 z-50 transform translate-y-[-140%] opacity-0 transition-all duration-300 max-w-md bg-slate-900 text-white p-3.5 rounded-lg border border-slate-700 shadow-2xl font-mono text-xs flex items-start gap-3">
-    <span id="toastIcon" class="text-base">ℹ️</span>
-    <div class="flex-1">
-      <div id="toastTitle" class="font-bold text-[11px] uppercase tracking-wider text-slate-200">System Notification</div>
-      <div id="toastMessage" class="text-slate-300 text-[10px] mt-0.5">Action completed.</div>
+  <!-- Toast Notification System (Refined Minimalist Enterprise HUD) -->
+  <div id="toastNotification" class="fixed top-5 right-5 z-50 transform -translate-y-6 scale-[0.98] opacity-0 pointer-events-none transition-all duration-250 ease-out max-w-sm w-auto bg-slate-900/95 backdrop-blur-md text-slate-100 px-3.5 py-2.5 rounded-lg border border-slate-700/60 shadow-[0_12px_32px_-4px_rgba(0,0,0,0.4),0_0_0_1px_rgba(255,255,255,0.04)] flex items-center gap-3">
+    <!-- Precision SVG Icon Container -->
+    <div id="toastIconWrapper" class="w-6 h-6 rounded-md bg-slate-800/80 border border-slate-700/50 flex items-center justify-center shrink-0 text-slate-300">
+      <svg id="toastSvg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="16" x2="12" y2="12"></line>
+        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+      </svg>
     </div>
-    <button onclick="hideToast()" class="text-slate-400 hover:text-white text-xs">✕</button>
+    
+    <!-- Text Content Stack -->
+    <div class="flex-1 min-w-[200px] max-w-[280px]">
+      <div id="toastTitle" class="text-[11px] font-semibold tracking-tight text-slate-100 font-sans leading-tight">System Notification</div>
+      <div id="toastMessage" class="text-slate-400 text-[10.5px] leading-snug mt-0.5 font-sans truncate">Action completed successfully.</div>
+    </div>
+
+    <!-- Dismiss Button -->
+    <button onclick="hideToast()" class="w-5 h-5 rounded flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800 transition-colors shrink-0 text-xs ml-1" title="Dismiss">
+      ✕
+    </button>
   </div>
 
   <!-- Hidden SVG Sprite for Icons -->
@@ -303,6 +297,7 @@
     <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></symbol>
     <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3l9 16H3z"/><path d="M12 9v4"/><path d="M12 16.2v.1"/></symbol>
     <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></symbol>
+    <symbol id="i-unlock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 018 0"/></symbol>
     <symbol id="i-ext" viewBox="0 0 24 24"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></symbol>
     <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 12l5 5 5-5"/><path d="M4 21h16"/></symbol>
     <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></symbol>
@@ -330,7 +325,8 @@
           Evidence-Grounded Creative Intelligence: 5-Stage Core Journey
         </h1>
         <p class="text-xs text-slate-600 mt-1 max-w-3xl">
-End-to-end product journey from creative upload and diagnostics to evidence validation, trade-off evaluation, and campaign sign-off.        </p>
+          End-to-end product journey from creative upload and diagnostics to evidence validation, trade-off evaluation, and campaign sign-off.
+        </p>
       </div>
 
       <!-- Jump Anchors to All 3 Stages -->
@@ -397,7 +393,7 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
     </div>
 
     <!-- Horizontal Wireframe Board Container -->
-    <div class="w-full overflow-x-auto custom-scrollbar bg-slate-200/50 p-4 border border-slate-300 rounded-b-lg">
+    <div class="w-full overflow-x-auto custom-scrollbar bg-slate-200/50 wf-canvas p-4 border border-slate-300 rounded-b-lg">
       <div class="flex items-start gap-6 min-w-max">
 
         <!-- SCREEN 01: INTAKE -->
@@ -464,7 +460,7 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
                     <div class="text-[10px] font-semibold text-slate-700">Drop Video Ad Files Here</div>
                     <div class="text-[8px] text-slate-500 mt-0.5">MP4 or MOV formats (Up to 3 variations)</div>
                     <div class="mt-2 flex justify-center gap-1.5">
-                      <button class="px-2 py-0.5 bg-slate-800 text-white text-[9px] font-mono rounded">Choose Files</button>
+                      <button onclick="simulateIngest()" class="px-2 py-0.5 bg-slate-800 text-white text-[9px] font-mono rounded hover:bg-slate-700">Choose Files</button>
                       <button onclick="simulateIngest()" class="px-2 py-0.5 border border-slate-400 bg-white text-[9px] font-mono rounded hover:bg-slate-50">Upload Demo</button>
                     </div>
                   </div>
@@ -1031,7 +1027,7 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div>
           <div class="flex items-center gap-2 mb-1">
-            <span class="text-[10px] font-mono font-bold px-2 py-0.5 bg-blue-600 text-white rounded">
+            <span class="text-[10px] font-mono font-bold px-2 py-0.5 bg-slate-800 text-white rounded">
               SECTION 02
             </span>
             <span class="text-xs font-mono font-bold text-slate-900">
@@ -1051,11 +1047,11 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
     </div>
 
     <!-- Horizontal High-Fi Board Container -->
-    <div class="w-full overflow-x-auto custom-scrollbar p-6 border border-slate-300 rounded-b-lg" style="background: var(--hfp-canvas);">
+    <div class="w-full overflow-x-auto custom-scrollbar bg-slate-200/50 wf-canvas p-6 border border-slate-300 rounded-b-lg">
       <div class="flex items-start gap-4 min-w-max">
 
         <!-- 01 · INTAKE -->
-        <div class="flex flex-col items-start">
+        <div class="flex flex-col items-start" id="hfp-screen-01">
           <div class="font-mono text-[10.5px] font-bold text-white px-2.5 py-1 rounded-full mb-3" style="background: var(--hfp-accent);">
             01 · INTAKE
           </div>
@@ -1081,11 +1077,11 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
               </div>
 
               <div class="hfp-tabs font-mono">
-                <div class="hfp-tab active">Intake</div>
-                <div class="hfp-tab">Timeline Doctor</div>
-                <div class="hfp-tab">Evidence</div>
-                <div class="hfp-tab">Decision Matrix</div>
-                <div class="hfp-tab">Packet</div>
+                <div class="hfp-tab active" onclick="scrollToHfp(1)">Intake</div>
+                <div class="hfp-tab" onclick="scrollToHfp(2)">Timeline Doctor</div>
+                <div class="hfp-tab" onclick="scrollToHfp(3)">Evidence</div>
+                <div class="hfp-tab" onclick="scrollToHfp(4)">Decision Matrix</div>
+                <div class="hfp-tab" onclick="scrollToHfp(5)">Packet</div>
               </div>
 
               <div class="hfp-body">
@@ -1094,12 +1090,12 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
                     <p class="text-[11px] text-slate-400 mb-0.5">Acme Growth / Q3 Launch</p>
                     <h2 class="text-sm font-bold tracking-tight" style="color: var(--hfp-ink);">New creative intake</h2>
                   </div>
-                  <button class="text-[10px] font-semibold px-2.5 py-1 rounded border border-slate-300 bg-white hover:bg-slate-50">Save draft</button>
+                  <button onclick="showToast('Draft Saved', 'Workspace state cached to local session.', '💾')" class="text-[10px] font-semibold px-2.5 py-1 rounded border border-slate-300 bg-white hover:bg-slate-50">Save draft</button>
                 </div>
 
                 <div class="hfp-card">
                   <div class="hfp-card-label">Creative intake</div>
-                  <div class="hfp-dropzone">
+                  <div class="hfp-dropzone" onclick="simulateIngest()">
                     <svg class="icon w-5 h-5 text-slate-400"><use href="#i-upload"/></svg>
                     <div class="text-[10.5px] font-semibold text-slate-700">Drop script, storyboard, or media file</div>
                     <div class="text-[9.5px] text-slate-400">or import from a connected source</div>
@@ -1153,7 +1149,7 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
 
             <div class="hfp-cta-bar">
               <div class="text-[9.5px] text-slate-400 max-w-[220px] leading-tight">Required intake fields must be complete before diagnostics can run.</div>
-              <button class="px-3 py-1.5 rounded text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800">Run Diagnostic →</button>
+              <button onclick="scrollToHfp(2)" class="px-3 py-1.5 rounded text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800">Run Diagnostic →</button>
             </div>
           </div>
         </div>
@@ -1165,7 +1161,7 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
         </div>
 
         <!-- 02 · DIAGNOSTICS -->
-        <div class="flex flex-col items-start">
+        <div class="flex flex-col items-start" id="hfp-screen-02">
           <div class="font-mono text-[10.5px] font-bold text-white px-2.5 py-1 rounded-full mb-3" style="background: var(--hfp-accent);">
             02 · DIAGNOSTICS
           </div>
@@ -1189,11 +1185,11 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
               </div>
 
               <div class="hfp-tabs font-mono">
-                <div class="hfp-tab">Intake</div>
-                <div class="hfp-tab active">Timeline Doctor</div>
-                <div class="hfp-tab">Evidence</div>
-                <div class="hfp-tab">Decision Matrix</div>
-                <div class="hfp-tab">Packet</div>
+                <div class="hfp-tab" onclick="scrollToHfp(1)">Intake</div>
+                <div class="hfp-tab active" onclick="scrollToHfp(2)">Timeline Doctor</div>
+                <div class="hfp-tab" onclick="scrollToHfp(3)">Evidence</div>
+                <div class="hfp-tab" onclick="scrollToHfp(4)">Decision Matrix</div>
+                <div class="hfp-tab" onclick="scrollToHfp(5)">Packet</div>
               </div>
 
               <div class="hfp-body">
@@ -1237,8 +1233,8 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
                       201 wpm against a 142 wpm baseline — dialogue reads rushed against the visual cut.
                     </div>
                     <div class="flex gap-1.5 mt-2">
-                      <button class="px-2 py-0.5 rounded text-[10px] font-semibold border border-slate-300 bg-white hover:bg-slate-50">Apply</button>
-                      <button class="px-2 py-0.5 rounded text-[10px] text-slate-500 hover:text-slate-800">Dismiss</button>
+                      <button onclick="showToast('Brief Applied', 'Scene 3 re-timed to 148 wpm baseline.', '✨')" class="px-2 py-0.5 rounded text-[10px] font-semibold border border-slate-300 bg-white hover:bg-slate-50">Apply</button>
+                      <button onclick="showToast('Brief Dismissed', 'Warning logged as designer override.', '⚠️')" class="px-2 py-0.5 rounded text-[10px] text-slate-500 hover:text-slate-800">Dismiss</button>
                     </div>
                   </div>
 
@@ -1251,8 +1247,8 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
                       Discount claim has no source attached — will fail the evidence gate as written.
                     </div>
                     <div class="flex gap-1.5 mt-2">
-                      <button class="px-2 py-0.5 rounded text-[10px] font-semibold border border-slate-300 bg-white hover:bg-slate-50">Apply</button>
-                      <button class="px-2 py-0.5 rounded text-[10px] text-slate-500 hover:text-slate-800">Dismiss</button>
+                      <button onclick="showToast('Rule Applied', 'Bound discount claim to verified pricing ledger.', '🔗')" class="px-2 py-0.5 rounded text-[10px] font-semibold border border-slate-300 bg-white hover:bg-slate-50">Apply</button>
+                      <button onclick="showToast('Flag Acknowledged', 'Claim routed to legal review queue.', '⚖️')" class="px-2 py-0.5 rounded text-[10px] text-slate-500 hover:text-slate-800">Dismiss</button>
                     </div>
                   </div>
                 </div>
@@ -1261,7 +1257,7 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
 
             <div class="hfp-cta-bar">
               <div class="text-[9.5px] text-slate-400 max-w-[220px] leading-tight">2 edit briefs open. Applying updates the Creative Twin directly.</div>
-              <button class="px-3 py-1.5 rounded text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800">Send to Evidence →</button>
+              <button onclick="scrollToHfp(3)" class="px-3 py-1.5 rounded text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800">Send to Evidence →</button>
             </div>
           </div>
         </div>
@@ -1273,7 +1269,7 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
         </div>
 
         <!-- 03 · EVIDENCE -->
-        <div class="flex flex-col items-start">
+        <div class="flex flex-col items-start" id="hfp-screen-03">
           <div class="font-mono text-[10.5px] font-bold text-white px-2.5 py-1 rounded-full mb-3" style="background: var(--hfp-accent);">
             03 · EVIDENCE
           </div>
@@ -1297,11 +1293,11 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
               </div>
 
               <div class="hfp-tabs font-mono">
-                <div class="hfp-tab">Intake</div>
-                <div class="hfp-tab">Timeline Doctor</div>
-                <div class="hfp-tab active">Evidence</div>
-                <div class="hfp-tab">Decision Matrix</div>
-                <div class="hfp-tab">Packet</div>
+                <div class="hfp-tab" onclick="scrollToHfp(1)">Intake</div>
+                <div class="hfp-tab" onclick="scrollToHfp(2)">Timeline Doctor</div>
+                <div class="hfp-tab active" onclick="scrollToHfp(3)">Evidence</div>
+                <div class="hfp-tab" onclick="scrollToHfp(4)">Decision Matrix</div>
+                <div class="hfp-tab" onclick="scrollToHfp(5)">Packet</div>
               </div>
 
               <div class="hfp-body">
@@ -1310,17 +1306,17 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
                     <p class="text-[11px] text-slate-400 mb-0.5">Q3 — Weekend Getaway Bundle</p>
                     <h2 class="text-sm font-bold tracking-tight" style="color: var(--hfp-ink);">Evidence layer</h2>
                   </div>
-                  <span class="font-mono text-[10px] text-slate-400">18 items</span>
+                  <span class="font-mono text-[10px] text-slate-400" id="hfpTotalItemsLabel">18 items</span>
                 </div>
 
                 <div class="flex flex-wrap gap-1.5 mt-2.5 mb-1 text-[10px] font-mono">
-                  <span class="px-2.5 py-0.5 rounded-full bg-slate-900 text-white font-bold">All</span>
-                  <span class="px-2 py-0.5 rounded-full border border-slate-300 bg-white text-slate-600">Observed</span>
-                  <span class="px-2 py-0.5 rounded-full border border-slate-300 bg-white text-slate-600">Sourced</span>
-                  <span class="px-2 py-0.5 rounded-full border border-slate-300 bg-white text-slate-600">Inference</span>
-                  <span class="px-2 py-0.5 rounded-full border border-slate-300 bg-white text-slate-600">Simulation</span>
-                  <span class="px-2 py-0.5 rounded-full border border-amber-300 bg-amber-50 text-amber-800 font-bold flex items-center gap-1">
-                    Unknown <span class="bg-amber-600 text-white px-1 rounded-full text-[8px]">1</span>
+                  <span class="px-2.5 py-0.5 rounded-full bg-slate-900 text-white font-bold cursor-pointer">All</span>
+                  <span class="px-2 py-0.5 rounded-full border border-slate-300 bg-white text-slate-600 cursor-pointer">Observed</span>
+                  <span class="px-2 py-0.5 rounded-full border border-slate-300 bg-white text-slate-600 cursor-pointer">Sourced</span>
+                  <span class="px-2 py-0.5 rounded-full border border-slate-300 bg-white text-slate-600 cursor-pointer">Inference</span>
+                  <span class="px-2 py-0.5 rounded-full border border-slate-300 bg-white text-slate-600 cursor-pointer">Simulation</span>
+                  <span id="hfpUnknownChip" class="px-2 py-0.5 rounded-full border border-amber-300 bg-amber-50 text-amber-800 font-bold flex items-center gap-1 cursor-pointer">
+                    Unknown <span id="hfpUnknownBadge" class="bg-amber-600 text-white px-1 rounded-full text-[8px]">1</span>
                   </span>
                 </div>
 
@@ -1346,14 +1342,17 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
                     <span class="text-slate-400 font-mono text-[9px]">Historical model</span>
                     <svg class="icon text-emerald-600"><use href="#i-check"/></svg>
                   </div>
-                  <div class="hfp-ev-row blocked">
-                    <span class="font-medium text-amber-900">Weekend discount claim</span>
-                    <div><span class="chip chip-c5">Unknown</span></div>
-                    <span class="text-slate-400 font-mono text-[9px]">—</span>
-                    <svg class="icon text-amber-700"><use href="#i-lock"/></svg>
-                    <div class="col-span-4 text-[9.5px] text-amber-800 flex items-center gap-1.5 border-t border-dashed border-amber-300 pt-1 mt-1">
-                      <svg class="icon w-3 h-3"><use href="#i-lock"/></svg>
-                      <span>Insufficient evidence — fails closed, excluded from scoring.</span>
+                  <div class="hfp-ev-row blocked" id="hfpBlockedRow">
+                    <span class="font-medium text-amber-900" id="hfpBlockedClaimTitle">Weekend discount claim</span>
+                    <div><span class="chip chip-c5" id="hfpBlockedChip">Unknown</span></div>
+                    <span class="text-slate-400 font-mono text-[9px]" id="hfpBlockedSource">—</span>
+                    <span id="hfpLockIcon"><svg class="icon text-amber-700"><use href="#i-lock"/></svg></span>
+                    <div class="col-span-4 text-[9.5px] text-amber-800 flex items-center justify-between border-t border-dashed border-amber-300 pt-1 mt-1" id="hfpBlockedFooter">
+                      <div class="flex items-center gap-1.5">
+                        <svg class="icon w-3 h-3"><use href="#i-lock"/></svg>
+                        <span id="hfpGateMessage">Insufficient evidence — fails closed, excluded from scoring.</span>
+                      </div>
+                      <button onclick="resolveHfpUnknown()" class="text-[8.5px] font-mono font-bold px-1.5 py-0.5 bg-amber-600 text-white rounded hover:bg-amber-700">Attach Source</button>
                     </div>
                   </div>
                 </div>
@@ -1361,10 +1360,10 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
             </div>
 
             <div class="hfp-cta-bar">
-              <div class="text-[9.5px] text-slate-400 max-w-[220px] leading-tight">1 unresolved Unknown item is blocking Decision Matrix scoring.</div>
-              <button disabled class="px-3 py-1.5 rounded text-xs font-semibold text-slate-400 bg-slate-200 cursor-not-allowed flex items-center gap-1.5">
-                <svg class="icon w-3 h-3"><use href="#i-lock"/></svg>
-                <span>Proceed to Matrix</span>
+              <div class="text-[9.5px] text-slate-400 max-w-[220px] leading-tight" id="hfpGateBarNotice">1 unresolved Unknown item is blocking Decision Matrix scoring.</div>
+              <button id="btnProceedMatrix" onclick="scrollToHfp(4)" disabled class="px-3 py-1.5 rounded text-xs font-semibold text-slate-400 bg-slate-200 cursor-not-allowed flex items-center gap-1.5 transition-all">
+                <svg class="icon w-3 h-3" id="btnProceedMatrixIcon"><use href="#i-lock"/></svg>
+                <span id="btnProceedMatrixText">Proceed to Matrix</span>
               </button>
             </div>
           </div>
@@ -1373,11 +1372,11 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
         <!-- Connector 3 -> 4 -->
         <div class="hfp-connector">
           <div class="hfp-connector-line"></div>
-          <div class="hfp-connector-caption">Classes resolved — matrix unlocks</div>
+          <div class="hfp-connector-caption" id="hfpConnectorCap34">Classes resolved — matrix unlocks</div>
         </div>
 
         <!-- 04 · DECISION -->
-        <div class="flex flex-col items-start">
+        <div class="flex flex-col items-start" id="hfp-screen-04">
           <div class="font-mono text-[10.5px] font-bold text-white px-2.5 py-1 rounded-full mb-3" style="background: var(--hfp-accent);">
             04 · DECISION
           </div>
@@ -1401,11 +1400,11 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
               </div>
 
               <div class="hfp-tabs font-mono">
-                <div class="hfp-tab">Intake</div>
-                <div class="hfp-tab">Timeline Doctor</div>
-                <div class="hfp-tab">Evidence</div>
-                <div class="hfp-tab active">Decision Matrix</div>
-                <div class="hfp-tab">Packet</div>
+                <div class="hfp-tab" onclick="scrollToHfp(1)">Intake</div>
+                <div class="hfp-tab" onclick="scrollToHfp(2)">Timeline Doctor</div>
+                <div class="hfp-tab" onclick="scrollToHfp(3)">Evidence</div>
+                <div class="hfp-tab active" onclick="scrollToHfp(4)">Decision Matrix</div>
+                <div class="hfp-tab" onclick="scrollToHfp(5)">Packet</div>
               </div>
 
               <div class="hfp-body">
@@ -1414,7 +1413,7 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
                     <p class="text-[11px] text-slate-400 mb-0.5">Q3 — Weekend Getaway Bundle</p>
                     <h2 class="text-sm font-bold tracking-tight" style="color: var(--hfp-ink);">Decision Matrix</h2>
                   </div>
-                  <button class="text-[10px] text-slate-600 border border-slate-300 rounded px-2 py-0.5 bg-white flex items-center gap-1">
+                  <button onclick="showToast('Simulation Lab', 'Stochastic engagement trials running (n=1,000)...', '🧪')" class="text-[10px] text-slate-600 border border-slate-300 rounded px-2 py-0.5 bg-white flex items-center gap-1 hover:bg-slate-50">
                     <svg class="icon w-2.5 h-2.5"><use href="#i-ext"/></svg>Simulation Lab
                   </button>
                 </div>
@@ -1456,7 +1455,7 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
 
             <div class="hfp-cta-bar">
               <div class="text-[9.5px] text-slate-400 max-w-[220px] leading-tight">Scoring is transparent — every cell traces to a typed evidence class.</div>
-              <button class="px-3 py-1.5 rounded text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800">Generate Packet →</button>
+              <button onclick="scrollToHfp(5)" class="px-3 py-1.5 rounded text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800">Generate Packet →</button>
             </div>
           </div>
         </div>
@@ -1468,7 +1467,7 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
         </div>
 
         <!-- 05 · PACKET -->
-        <div class="flex flex-col items-start">
+        <div class="flex flex-col items-start" id="hfp-screen-05">
           <div class="font-mono text-[10.5px] font-bold text-white px-2.5 py-1 rounded-full mb-3" style="background: var(--hfp-accent);">
             05 · PACKET
           </div>
@@ -1492,11 +1491,11 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
               </div>
 
               <div class="hfp-tabs font-mono">
-                <div class="hfp-tab">Intake</div>
-                <div class="hfp-tab">Timeline Doctor</div>
-                <div class="hfp-tab">Evidence</div>
-                <div class="hfp-tab">Decision Matrix</div>
-                <div class="hfp-tab active">Packet</div>
+                <div class="hfp-tab" onclick="scrollToHfp(1)">Intake</div>
+                <div class="hfp-tab" onclick="scrollToHfp(2)">Timeline Doctor</div>
+                <div class="hfp-tab" onclick="scrollToHfp(3)">Evidence</div>
+                <div class="hfp-tab" onclick="scrollToHfp(4)">Decision Matrix</div>
+                <div class="hfp-tab active" onclick="scrollToHfp(5)">Packet</div>
               </div>
 
               <div class="hfp-body">
@@ -1521,22 +1520,22 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
                   <div class="space-y-1.5 text-[10px] text-slate-600">
                     <div class="flex justify-between items-center">
                       <span>Ads connector import</span>
-                      <span class="text-blue-600 font-bold flex items-center gap-1 cursor-pointer"><svg class="icon w-2.5 h-2.5"><use href="#i-ext"/></svg>View source</span>
+                      <span onclick="showToast('Source Verified', 'Meta Ads Insights API connector #AC-882 active.', '🔗')" class="text-blue-600 font-bold flex items-center gap-1 cursor-pointer hover:underline"><svg class="icon w-2.5 h-2.5"><use href="#i-ext"/></svg>View source</span>
                     </div>
                     <div class="flex justify-between items-center">
                       <span>Industry report, seasonal demand</span>
-                      <span class="text-blue-600 font-bold flex items-center gap-1 cursor-pointer"><svg class="icon w-2.5 h-2.5"><use href="#i-ext"/></svg>View source</span>
+                      <span onclick="showToast('Source Verified', 'Q3 Hospitality Index 2026 citation verified.', '🔗')" class="text-blue-600 font-bold flex items-center gap-1 cursor-pointer hover:underline"><svg class="icon w-2.5 h-2.5"><use href="#i-ext"/></svg>View source</span>
                     </div>
                     <div class="flex justify-between items-center">
                       <span>Historical uplift model</span>
-                      <span class="text-blue-600 font-bold flex items-center gap-1 cursor-pointer"><svg class="icon w-2.5 h-2.5"><use href="#i-ext"/></svg>View source</span>
+                      <span onclick="showToast('Source Verified', 'Ridge regression coefficient R^2 = 0.89 confirmed.', '🔗')" class="text-blue-600 font-bold flex items-center gap-1 cursor-pointer hover:underline"><svg class="icon w-2.5 h-2.5"><use href="#i-ext"/></svg>View source</span>
                     </div>
                   </div>
                 </div>
 
-                <div class="border-l-4 border-amber-500 bg-amber-50 rounded-r p-2 text-[10px] text-amber-900 mt-2.5 flex items-center gap-2">
+                <div class="border-l-4 border-amber-500 bg-amber-50 rounded-r p-2 text-[10px] text-amber-900 mt-2.5 flex items-center gap-2" id="hfpPacketDisclosure">
                   <svg class="icon text-amber-600"><use href="#i-alert"/></svg>
-                  <span>1 item remains Unknown — disclosed in this packet, not hidden.</span>
+                  <span id="hfpPacketDisclosureText">1 item remains Unknown — disclosed in this packet, not hidden.</span>
                 </div>
 
                 <div class="flex gap-2 mt-3 text-[9.5px]">
@@ -1550,8 +1549,8 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
             <div class="hfp-cta-bar">
               <div class="text-[9.5px] text-slate-400 max-w-[220px] leading-tight">Packet is a fixed, auditable snapshot of this decision.</div>
               <div class="flex gap-2">
-                <button class="px-2.5 py-1 rounded text-xs border border-slate-300 bg-white hover:bg-slate-50">Share</button>
-                <button class="px-3 py-1 rounded text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 flex items-center gap-1">
+                <button onclick="viewRawJsonAudit()" class="px-2.5 py-1 rounded text-xs border border-slate-300 bg-white hover:bg-slate-50">Share</button>
+                <button onclick="runLiveClearanceAudit()" class="px-3 py-1 rounded text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 flex items-center gap-1">
                   <svg class="icon w-3 h-3 stroke-white"><use href="#i-download"/></svg>Export PDF
                 </button>
               </div>
@@ -1668,7 +1667,6 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
                 <div class="text-[9px]" style="color: var(--hf-ink-muted);">Asset Validation</div>
               </div>
             </div>
-            <!-- Arrow -->
             <div class="text-lg font-bold pb-6" style="color: var(--hf-ink-muted);">→</div>
           </div>
 
@@ -1707,7 +1705,6 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
                 <div class="text-[9px]" style="color: var(--hf-ink-muted);">Timeline Doctor</div>
               </div>
             </div>
-            <!-- Arrow -->
             <div class="text-lg font-bold pb-6" style="color: var(--hf-ink-muted);">→</div>
           </div>
 
@@ -1752,7 +1749,6 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
                 <div class="text-[9px]" style="color: var(--hf-ink-muted);">Audit Registry</div>
               </div>
             </div>
-            <!-- Arrow -->
             <div class="text-lg font-bold pb-6" style="color: var(--hf-ink-muted);">→</div>
           </div>
 
@@ -1792,7 +1788,6 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
                 <div class="text-[9px]" style="color: var(--hf-ink-muted);">Matrix Arbitration</div>
               </div>
             </div>
-            <!-- Arrow -->
             <div class="text-lg font-bold pb-6" style="color: var(--hf-ink-muted);">→</div>
           </div>
 
@@ -1859,23 +1854,23 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
           </div>
           <div class="grid grid-cols-1 gap-1.5 text-[10px]">
             <div class="flex items-center gap-2">
-              <span class="chip chip-c1 shrink-0 w-24 justify-center">[C1] Direct Fact</span>
+              <span class="chip chip-c1 shrink-0 w-[130px] justify-start pl-2.5">[C1] Direct Fact</span>
               <span class="text-slate-600">Video pixels, timestamps &amp; on-screen text</span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="chip chip-c2 shrink-0 w-24 justify-center">[C2] Brand Rule</span>
+              <span class="chip chip-c2 shrink-0 w-[130px] justify-start pl-2.5">[C2] Brand Rule</span>
               <span class="text-slate-600">Company brand book, safe-zones &amp; legal claims</span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="chip chip-c3 shrink-0 w-24 justify-center">[C3] Past Data</span>
+              <span class="chip chip-c3 shrink-0 w-[130px] justify-start pl-2.5">[C3] Past Data</span>
               <span class="text-slate-600">Historical performance benchmarks</span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="chip chip-c4 shrink-0 w-24 justify-center">[C4] AI Estimate</span>
+              <span class="chip chip-c4 shrink-0 w-[130px] justify-start pl-2.5">[C4] AI Estimate</span>
               <span class="text-slate-600">Projected engagement &amp; pacing models</span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="chip chip-c5 shrink-0 w-24 justify-center">[C5] Missing</span>
+              <span class="chip chip-c5 shrink-0 w-[130px] justify-start pl-2.5">[C5] Missing</span>
               <span class="text-slate-600 font-medium text-amber-900">No source found — pauses approval</span>
             </div>
           </div>
@@ -1917,6 +1912,26 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
   <!-- JAVASCRIPT CONTROLLER -->
   <!-- ========================================================================= -->
   <script>
+    // ── Missing Smooth Scroll Implementation for Wireframes ──
+    function scrollToScreen(screenId) {
+      const target = document.getElementById(screenId);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+        target.classList.add("ring-2", "ring-slate-900");
+        setTimeout(() => target.classList.remove("ring-2", "ring-slate-900"), 1200);
+        showToast("Wireframe Focused", `Navigated to ${screenId.toUpperCase()}.`, "🎯");
+      }
+    }
+
+    // ── Smooth Scroll Implementation for Section 02 ──
+    function scrollToHfp(num) {
+      const el = document.getElementById(`hfp-screen-0${num}`);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+        showToast("Journey Step", `Jumped to Screen 0${num}.`, "🧭");
+      }
+    }
+
     // ── High-Fidelity Theme Switcher ──
     function setHfTheme(theme) {
       const container = document.getElementById("hfContainer");
@@ -1939,6 +1954,58 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
         btnDark.classList.add("text-slate-600");
       }
       showToast("Theme Updated", `High-Fidelity mockups switched to ${theme.toUpperCase()} mode.`, "🎨");
+    }
+
+    // ── Interactive Fail-Closed Gate Resolver for Section 02 ──
+    let isHfpUnknownResolved = false;
+    function resolveHfpUnknown() {
+      if (isHfpUnknownResolved) return;
+      isHfpUnknownResolved = true;
+
+      // Update Screen 3 UI in Section 02
+      const blockedRow = document.getElementById("hfpBlockedRow");
+      blockedRow.classList.remove("blocked");
+      blockedRow.style.background = "#F0FDF4";
+
+      const chip = document.getElementById("hfpBlockedChip");
+      chip.className = "chip chip-c2";
+      chip.innerText = "Sourced";
+
+      document.getElementById("hfpBlockedClaimTitle").classList.remove("text-amber-900");
+      document.getElementById("hfpBlockedClaimTitle").classList.add("text-emerald-900");
+      document.getElementById("hfpBlockedSource").innerText = "Price Ledger §4.1";
+      document.getElementById("hfpBlockedSource").classList.remove("text-slate-400");
+      document.getElementById("hfpBlockedSource").classList.add("text-blue-600", "font-semibold");
+
+      document.getElementById("hfpLockIcon").innerHTML = '<svg class="icon text-emerald-600"><use href="#i-check"/></svg>';
+      document.getElementById("hfpBlockedFooter").innerHTML = `
+        <div class="flex items-center gap-1.5 text-emerald-800 font-semibold">
+          <svg class="icon w-3 h-3 text-emerald-600"><use href="#i-check"/></svg>
+          <span>Verified against authoritative Q3 price ledger. Evidence gate clear.</span>
+        </div>
+      `;
+
+      // Update Unknown counter badge
+      const unkBadge = document.getElementById("hfpUnknownBadge");
+      if (unkBadge) unkBadge.innerText = "0";
+
+      // Unlock Proceed to Matrix button
+      const btnMatrix = document.getElementById("btnProceedMatrix");
+      btnMatrix.removeAttribute("disabled");
+      btnMatrix.classList.remove("text-slate-400", "bg-slate-200", "cursor-not-allowed");
+      btnMatrix.classList.add("text-white", "bg-blue-600", "hover:bg-blue-700", "cursor-pointer");
+      document.getElementById("btnProceedMatrixIcon").innerHTML = '<use href="#i-unlock"/>';
+      document.getElementById("btnProceedMatrixText").innerText = "Proceed to Matrix →";
+      document.getElementById("hfpGateBarNotice").innerText = "All items verified. Decision Matrix scoring unlocked.";
+
+      // Update Packet notice
+      const packetNotice = document.getElementById("hfpPacketDisclosure");
+      if (packetNotice) {
+        packetNotice.className = "border-l-4 border-emerald-500 bg-emerald-50 rounded-r p-2 text-[10px] text-emerald-900 mt-2.5 flex items-center gap-2";
+        packetNotice.innerHTML = '<svg class="icon text-emerald-600"><use href="#i-check"/></svg><span>All evidence items verified and sourced. Clean audit dossier ready.</span>';
+      }
+
+      showToast("Evidence Gate Unlocked", "Attached citation: 'Price Ledger §4.1'. Fail-closed gate lifted!", "🔓");
     }
 
     // ── Screen Content Templates for High-Fidelity Expanded View ──
@@ -1982,7 +2049,7 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
                   </div>
                   <div>
                     <label class="text-xs block mb-1.5" style="color: var(--hf-ink-secondary);">Creative Assets Dropzone</label>
-                    <div class="border-2 border-dashed rounded-lg p-6 text-center" style="background: var(--hf-surface-raised); border-color: var(--hf-border);">
+                    <div onclick="simulateIngest()" class="border-2 border-dashed rounded-lg p-6 text-center cursor-pointer hover:border-blue-500 transition-colors" style="background: var(--hf-surface-raised); border-color: var(--hf-border);">
                       <div class="text-xl mb-1">⬆</div>
                       <div class="text-xs" style="color: var(--hf-ink-secondary);">Drop video files here or <span class="text-blue-500 font-semibold cursor-pointer">browse</span></div>
                       <div class="text-[10px] font-mono mt-1" style="color: var(--hf-ink-muted);">MP4 · MOV · PNG · JPG — max 2 GB</div>
@@ -1998,16 +2065,16 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
                 </div>
                 <div class="flex gap-2 mt-5">
                   <button onclick="openHfExpanded(1)" class="px-4 py-2 rounded text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700">Submit for Analysis →</button>
-                  <button class="px-4 py-2 rounded text-xs border" style="border-color: var(--hf-border); color: var(--hf-ink);">Save Draft</button>
+                  <button onclick="showToast('Draft Stored', 'Draft parameters saved to workspace.', '📁')" class="px-4 py-2 rounded text-xs border hover:bg-slate-50" style="border-color: var(--hf-border); color: var(--hf-ink);">Save Draft</button>
                 </div>
               </div>
               <div class="w-64 border-l p-4 overflow-y-auto text-xs font-mono" style="background: var(--hf-surface); border-color: var(--hf-border);">
                 <div class="font-bold text-[10px] uppercase tracking-wider mb-3" style="color: var(--hf-ink-muted);">Pipeline Status</div>
                 <div class="space-y-2 text-[11px]">
-                  <div class="flex justify-between py-1 border-b" style="border-color: var(--hf-border-subtle);"><span>Creative Twin</span><span style="color: var(--hf-ink-muted);">Pending</span></div>
-                  <div class="flex justify-between py-1 border-b" style="border-color: var(--hf-border-subtle);"><span>Brand Brain</span><span style="color: var(--hf-ink-muted);">Waiting</span></div>
-                  <div class="flex justify-between py-1 border-b" style="border-color: var(--hf-border-subtle);"><span>Evidence Layer</span><span style="color: var(--hf-ink-muted);">Waiting</span></div>
-                  <div class="flex justify-between py-1 border-b" style="border-color: var(--hf-border-subtle);"><span>Decision Matrix</span><span style="color: var(--hf-ink-muted);">Waiting</span></div>
+                  <div class="flex justify-between py-1 border-b" style="border-color: var(--hf-border-subtle);"><span>Creative Twin</span><span style="color: var(--hf-ink-muted);">Ready</span></div>
+                  <div class="flex justify-between py-1 border-b" style="border-color: var(--hf-border-subtle);"><span>Brand Brain</span><span style="color: var(--hf-obs-text);">Synced</span></div>
+                  <div class="flex justify-between py-1 border-b" style="border-color: var(--hf-border-subtle);"><span>Evidence Layer</span><span style="color: var(--hf-ink-muted);">Standby</span></div>
+                  <div class="flex justify-between py-1 border-b" style="border-color: var(--hf-border-subtle);"><span>Decision Matrix</span><span style="color: var(--hf-ink-muted);">Standby</span></div>
                 </div>
                 <div class="font-bold text-[10px] uppercase tracking-wider mt-5 mb-2" style="color: var(--hf-ink-muted);">Codex Constraints</div>
                 <div class="space-y-1.5 text-[10.5px]" style="color: var(--hf-ink-secondary);">
@@ -2105,7 +2172,7 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
             </div>
             <div class="flex gap-2 mt-5">
               <button onclick="openHfExpanded(2)" class="px-4 py-2 rounded text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700">Review Evidence →</button>
-              <button class="px-4 py-2 rounded text-xs border" style="border-color: var(--hf-border); color: var(--hf-ink);">Export Edit Briefs</button>
+              <button onclick="showToast('Edit Briefs Exported', 'Downloaded markdown action-list for editor.', '📋')" class="px-4 py-2 rounded text-xs border hover:bg-slate-50" style="border-color: var(--hf-border); color: var(--hf-ink);">Export Edit Briefs</button>
             </div>
           </div>
         `
@@ -2157,7 +2224,7 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
                 <span class="font-bold">2 Unknown data points — downstream scoring blocked</span>
                 <span style="color: var(--hf-ink-secondary);">· Resolve or exclude to unlock Decision Matrix</span>
               </div>
-              <button class="px-2 py-0.5 rounded text-[10px] font-mono border" style="background: transparent; border-color: #5c3a10; color: #fbbf24;">Resolve</button>
+              <button onclick="showToast('Data Point Cleared', 'Substituted competitor survey with Nielsen Benchmark Q2.', '🛡️')" class="px-2 py-0.5 rounded text-[10px] font-mono border hover:bg-amber-900/30" style="background: transparent; border-color: #5c3a10; color: #fbbf24;">Resolve</button>
             </div>
 
             <!-- Table -->
@@ -2197,7 +2264,7 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
             </div>
             <div class="flex gap-2 mt-5">
               <button onclick="openHfExpanded(3)" class="px-4 py-2 rounded text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700">Open Decision Matrix →</button>
-              <button class="px-4 py-2 rounded text-xs border" style="border-color: var(--hf-border); color: var(--hf-ink);">Export Evidence Report</button>
+              <button onclick="showToast('Evidence Exported', 'Full 30-item provenance log saved as CSV.', '📊')" class="px-4 py-2 rounded text-xs border hover:bg-slate-50" style="border-color: var(--hf-border); color: var(--hf-ink);">Export Evidence Report</button>
             </div>
           </div>
         `
@@ -2335,8 +2402,8 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
 
             <div class="flex gap-2">
               <button onclick="runLiveClearanceAudit()" class="px-4 py-2 rounded text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700">Export Packet PDF ↓</button>
-              <button class="px-4 py-2 rounded text-xs border" style="border-color: var(--hf-border); color: var(--hf-ink);">Share Link</button>
-              <button class="px-4 py-2 rounded text-xs border" style="border-color: var(--hf-border); color: var(--hf-ink);">Calibration Loop</button>
+              <button onclick="viewRawJsonAudit()" class="px-4 py-2 rounded text-xs border hover:bg-slate-50" style="border-color: var(--hf-border); color: var(--hf-ink);">Share Link</button>
+              <button onclick="showToast('Calibration Armed', 'Post-campaign telemetry listener initialized.', '🎯')" class="px-4 py-2 rounded text-xs border hover:bg-slate-50" style="border-color: var(--hf-border); color: var(--hf-ink);">Calibration Loop</button>
             </div>
           </div>
         `
@@ -2363,22 +2430,54 @@ End-to-end product journey from creative upload and diagnostics to evidence vali
       document.getElementById("hfExpandedWrapper").classList.add("hidden");
     }
 
-    function showToast(title, message, icon = "ℹ️") {
+    // ── Modern Vector Icon Mapper for Notifications ──
+    function getToastSvgIcon(iconKey) {
+      // Clean vector SVG paths instead of emojis
+      const icons = {
+        check: '<path d="M20 6L9 17l-5-5"/>',
+        search: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/>',
+        target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="1" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="23" y2="12"/>',
+        save: '<path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/>',
+        unlock: '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 018 0"/>',
+        alert: '<path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>',
+        file: '<path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
+        tune: '<line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>',
+        info: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>'
+      };
+
+      if (iconKey === "🔍") return icons.search;
+      if (iconKey === "🎯" || iconKey === "🧭" || iconKey === "📍") return icons.target;
+      if (iconKey === "✅" || iconKey === "✨" || iconKey === "✍️") return icons.check;
+      if (iconKey === "💾" || iconKey === "📁") return icons.save;
+      if (iconKey === "🔓" || iconKey === "🛡️") return icons.unlock;
+      if (iconKey === "⚠️") return icons.alert;
+      if (iconKey === "📄" || iconKey === "📋" || iconKey === "📊") return icons.file;
+      if (iconKey === "🎨" || iconKey === "⚖️" || iconKey === "🧪") return icons.tune;
+      return icons.info;
+    }
+
+    function showToast(title, message, icon = "info") {
       const toast = document.getElementById("toastNotification");
-      document.getElementById("toastTitle").innerText = title;
-      document.getElementById("toastMessage").innerText = message;
-      document.getElementById("toastIcon").innerText = icon;
+      const titleEl = document.getElementById("toastTitle");
+      const msgEl = document.getElementById("toastMessage");
+      const svgEl = document.getElementById("toastSvg");
 
-      toast.classList.remove("translate-y-[-140%]", "opacity-0");
-      toast.classList.add("translate-y-0", "opacity-100");
+      titleEl.innerText = title;
+      msgEl.innerText = message;
+      svgEl.innerHTML = getToastSvgIcon(icon);
 
-      setTimeout(hideToast, 3500);
+      // Slide and fade into view
+      toast.classList.remove("-translate-y-6", "scale-[0.98]", "opacity-0", "pointer-events-none");
+      toast.classList.add("translate-y-0", "scale-100", "opacity-100", "pointer-events-auto");
+
+      if (window.toastTimer) clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(hideToast, 2800);
     }
 
     function hideToast() {
       const toast = document.getElementById("toastNotification");
-      toast.classList.add("translate-y-[-140%]", "opacity-0");
-      toast.classList.remove("translate-y-0", "opacity-100");
+      toast.classList.add("-translate-y-6", "scale-[0.98]", "opacity-0", "pointer-events-none");
+      toast.classList.remove("translate-y-0", "scale-100", "opacity-100", "pointer-events-auto");
     }
 
     function simulateIngest() {
